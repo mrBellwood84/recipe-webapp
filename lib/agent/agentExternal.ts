@@ -22,7 +22,7 @@ export const agentExternal = {
       body: JSON.stringify(body),
     })
   },
-  delete: async (url: string, body?: object = null) => {
+  delete: async (url: string, body?: object) => {
     return await fetch(url, {
       method: 'DELETE',
       mode: 'cors',

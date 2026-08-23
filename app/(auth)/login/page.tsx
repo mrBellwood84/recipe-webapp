@@ -3,6 +3,10 @@
 import {Box, Button, Container, Stack} from "@mantine/core";
 import {agentInternal} from "@/lib/agent/agentInternal";
 import {LoginRequestDTO} from "@/lib/models/auth/loginRequestDTO";
+import {User} from "@/lib/models/user/user";
+import {HttpResponse} from "@/lib/models/httpResponse";
+import {useSession} from "@/lib/session/SessionProvider";
+import {redirect} from "next/navigation";
 
 const credentials: LoginRequestDTO[] = [
   { email: "admin@recipeapp.com", password: "AdminSuperSecretPassword123!" },
@@ -11,11 +15,22 @@ const credentials: LoginRequestDTO[] = [
 ]
 
 const LoginPage = () => {
+  const session = useSession();
 
   const onStaticLoginClick = (user: LoginRequestDTO) => {
     agentInternal.post("/api/auth/login", user)
-      .then(x => x.json()
-        .then(data => console.log(data)));
+      .then(x => x.json() as unknown as HttpResponse<User | undefined>)
+      .then(data => {
+        switch (data.statusCode){
+          case 200:
+            session.setUser(data.body);
+            session.setRole(data.body?.role)
+            if (data.body?.role === "Admin") redirect("/admin/dashboard");
+            else redirect("/dashboard");
+
+        }
+        console.error("DEV :: Missing failed implementation!")
+      });
   }
   return (
     <Container>
@@ -24,8 +39,8 @@ const LoginPage = () => {
       </Box>
       <Stack gap="xs">
         <Button onClick={() => {onStaticLoginClick(credentials[0])}}>Login Admin</Button>
-        <Button>Login User 1</Button>
-        <Button>Login User 2</Button>
+        <Button onClick={() => onStaticLoginClick(credentials[1])}>Login User 1</Button>
+        <Button onClick={() => onStaticLoginClick(credentials[2])}>Login User 2</Button>
       </Stack>
     </Container>
   )

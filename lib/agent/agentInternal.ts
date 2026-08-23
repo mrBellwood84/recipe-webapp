@@ -22,7 +22,7 @@ export const agentInternal = {
       body: JSON.stringify(body),
     })
   },
-  delete: async (url: string, body?: object = null) => {
+  delete: async (url: string, body?: object) => {
     return await fetch(url, {
       method: 'DELETE',
       mode: 'same-origin',

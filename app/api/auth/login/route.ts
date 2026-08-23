@@ -1,7 +1,9 @@
 import {NextResponse} from "next/server";
 import {agentExternal} from "@/lib/agent/agentExternal";
 import {HttpResponse} from "@/lib/models/httpResponse";
-import {cookies} from "next/headers";
+import sessionManager from "@/lib/session/sessionManager";
+import {User} from "@/lib/models/user/user";
+import {LoginResponseDTO} from "@/lib/models/auth/loginResponseDTO";
 
 export const POST = async (request: Request) => {
   try {
@@ -21,33 +23,9 @@ export const POST = async (request: Request) => {
     }
 
     const data: LoginResponseDTO = await response.json()
-    const user: User = {
-      userId: data.userId,
-      userName: data.userName,
-      email: data.email,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      avatarUrl: data.avatarUrl,
-    }
 
-    const cookieStore = await cookies();
-
-    cookieStore.set('token', data.token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7,
-    });
-
-    cookieStore.set("user_info", JSON.stringify(user), {
-      httpOnly: false,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7
-    });
-
+    await sessionManager.setSession(data);
+    const user = await sessionManager.getUserData() as User;
 
 
     const successResponse: HttpResponse<User> = {

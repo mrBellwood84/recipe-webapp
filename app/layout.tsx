@@ -12,31 +12,37 @@ import {
 } from '@mantine/core';
 import {ReactNode} from "react";
 import MainShell from "@/components/layout/MainShell";
+import {SessionProvider} from "@/lib/session/SessionProvider";
+import sessionManager from "@/lib/session/sessionManager";
 
 interface IProps {
   children: ReactNode;
 }
 
 export const metadata = {
-  title: 'My Mantine app',
+  title: 'Min oppskrifts applikasjon',
   description: 'I have followed setup instructions carefully',
 };
 
 const theme = createTheme({});
 
-export default function RootLayout({children}: IProps) {
+export default async function RootLayout({children}: IProps) {
+
+  const user = await sessionManager.getUserData();
   return (
-    <html lang="en" {...mantineHtmlProps}>
+    <html lang="nb" {...mantineHtmlProps}>
     <head>
       <ColorSchemeScript/>
     </head>
 
     <body>
+      <SessionProvider initialUser={user}>
       <MantineProvider theme={theme}>
         <MainShell>
           {children}
         </MainShell>
       </MantineProvider>
+    </SessionProvider>
     </body>
 
     </html>

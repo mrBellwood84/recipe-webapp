@@ -3,7 +3,7 @@
 import { Group, Button, Container, Anchor, Title } from "@mantine/core";
 import Link from "next/link";
 
-export const NoUserHeader = () => {
+export const GuestHeader = () => {
   return (
     <Container size="lg" h="100%">
       <Group justify="space-between" align="center" h="100%">
