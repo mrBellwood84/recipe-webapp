@@ -1,0 +1,1 @@
+export const AdminHeader = () => <div>Admin header</div>
