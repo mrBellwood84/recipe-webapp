@@ -8,8 +8,8 @@ import {LoginResponse} from "@/lib/models/auth/loginResponse";
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const url = `${process.env.AUTH_API}/api/login`;
-    const response = await agentExternal.post(url, body);
+    const loginUrl = `${process.env.AUTH_API}/api/login`;
+    const response = await agentExternal.post(loginUrl, body);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => undefined);

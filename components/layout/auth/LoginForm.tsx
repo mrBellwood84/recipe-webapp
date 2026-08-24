@@ -1,18 +1,27 @@
 "use client"
 
-import {Alert, Button, Container, Group, Input, Paper, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
-import {useForm, isEmail, hasLength } from "@mantine/form";
-import {LoginRequest} from "@/lib/models/auth/loginRequest";
-import {agentInternal} from "@/lib/agent/agentInternal";
-import {useState} from "react";
-import {HttpResponse} from "@/lib/models/httpResponse";
-import {LoginResponse} from "@/lib/models/auth/loginResponse";
-import {useRouter} from "next/navigation";
-import {useSession} from "@/lib/session/SessionProvider";
-import {json} from "node:stream/consumers";
+import {
+  Alert,
+  Anchor,
+  Button,
+  Group,
+  Paper,
+  PasswordInput,
+  Stack,
+  TextInput,
+  Title
+} from "@mantine/core";
+import { useForm, isEmail, hasLength } from "@mantine/form";
+import { LoginRequest } from "@/lib/models/auth/loginRequest";
+import { agentInternal } from "@/lib/agent/agentInternal";
+import { useState } from "react";
+import { HttpResponse } from "@/lib/models/httpResponse";
+import { LoginResponse } from "@/lib/models/auth/loginResponse";
+import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/session/SessionProvider";
+import Link from "next/link";
 
 export const LoginForm = () => {
-
   const [requestActive, setRequestActive] = useState<boolean>(false);
   const [loginFailedMessage, setLoginFailedMessage] = useState<string | undefined>();
 
@@ -26,8 +35,8 @@ export const LoginForm = () => {
       password: "",
     },
     validate: {
-      email: isEmail("Ikke gylding epost"),
-      password: hasLength({min: 1}, "Passord mangler")
+      email: isEmail("Ikke gyldig epost"),
+      password: hasLength({ min: 1 }, "Passord mangler")
     }
   });
 
@@ -37,9 +46,7 @@ export const LoginForm = () => {
 
     try {
       const credentials: LoginRequest = value;
-
       const res = await agentInternal.post("/api/auth/login", credentials);
-
       const data = await res.json() as unknown as HttpResponse<LoginResponse>;
 
       if (res.status === 200 && data.body) {
@@ -58,9 +65,7 @@ export const LoginForm = () => {
           setLoginFailedMessage("Pålogging ikke mulig grunnet feil på server. Prøv igjen senere...");
         }
       }
-
-    } catch (err) {
-      console.error(err);
+    } catch {
       setLoginFailedMessage("Det oppstod en nettverksfeil. Vennligst prøv igjen.");
     } finally {
       setRequestActive(false);
@@ -84,17 +89,24 @@ export const LoginForm = () => {
             {...form.getInputProps("email")}
           />
 
-          <PasswordInput
-            label="Passord"
-            placeholder="Passord"
-            withAsterisk
-            disabled={requestActive}
-            key={form.key("password")}
-            {...form.getInputProps("password")}
-          />
+          <div>
+            <PasswordInput
+              label="Passord"
+              placeholder="Passord"
+              withAsterisk
+              disabled={requestActive}
+              key={form.key("password")}
+              {...form.getInputProps("password")}
+            />
+            <Group justify="flex-end" mt={4}>
+              <Anchor component={Link} href="/recover" size="xs" c="dimmed">
+                Glemt passord?
+              </Anchor>
+            </Group>
+          </div>
 
           {loginFailedMessage && (
-            <Alert color="red" variant="light">
+            <Alert color="red" variant="light" radius="md" title="Feil ved innlogging">
               {loginFailedMessage}
             </Alert>
           )}
@@ -106,4 +118,4 @@ export const LoginForm = () => {
       </form>
     </Paper>
   );
-}
+};

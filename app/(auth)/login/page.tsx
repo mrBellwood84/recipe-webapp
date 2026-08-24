@@ -1,19 +1,20 @@
-"use client"
+"use client";
 
-import {Alert, Box, Button, Container, Divider, Paper, Stack} from "@mantine/core";
-import {agentInternal} from "@/lib/agent/agentInternal";
-import {LoginRequest} from "@/lib/models/auth/loginRequest";
-import {User} from "@/lib/models/user/user";
-import {HttpResponse} from "@/lib/models/httpResponse";
-import {useSession} from "@/lib/session/SessionProvider";
-import {useRouter, useSearchParams} from "next/navigation";
-import {LoginForm} from "@/components/layout/auth/LoginForm";
+import { Alert, Button, Container, Divider, Paper, Stack } from "@mantine/core";
+import { useRouter, useSearchParams } from "next/navigation";
+import { LoginForm } from "@/components/layout/auth/LoginForm";
+import { GoogleLogin } from "@/components/layout/auth/GoogleLogin";
+import { agentInternal } from "@/lib/agent/agentInternal";
+import { LoginRequest } from "@/lib/models/auth/loginRequest";
+import { User } from "@/lib/models/user/user";
+import { HttpResponse } from "@/lib/models/httpResponse";
+import { useSession } from "@/lib/session/SessionProvider";
 
 const credentials: LoginRequest[] = [
   { email: "admin@recipeapp.com", password: "AdminSuperSecretPassword123!" },
   { email: "user1@example.com", password: "DevUser123!" },
   { email: "user2@example.com", password: "DevUser123!" },
-]
+];
 
 const LoginPage = () => {
   const session = useSession();
@@ -22,20 +23,20 @@ const LoginPage = () => {
 
   const hasExpired = searchParams.get("expired") === "true";
 
-  const onStaticLoginClick = (user: LoginRequest) => {
-    agentInternal.post("/api/auth/login", user)
-      .then(x => x.json() as unknown as HttpResponse<User | undefined>)
-      .then(data => {
-        switch (data.statusCode){
-          case 200:
-            session.setUser(data.body);
-            session.setRole(data.body?.role)
-            if (data.body?.role === "Admin") router.push("/admin/dashboard");
-            else router.push("/dashboard");
-        }
-      })
-      .catch((err) => console.error(err));
-  }
+  const handleStaticLogin = async (user: LoginRequest) => {
+    try {
+      const res = await agentInternal.post("/api/auth/login", user);
+      const data = (await res.json()) as HttpResponse<User | undefined>;
+
+      if (data.statusCode === 200 && data.body) {
+        session.setUser(data.body);
+        session.setRole(data.body.role);
+        router.push(data.body.role === "Admin" ? "/admin/dashboard" : "/dashboard");
+      }
+    } catch (err) {
+      console.error("DEV Login feilet:", err);
+    }
+  };
 
   return (
     <Container size={420} my={40}>
@@ -48,24 +49,45 @@ const LoginPage = () => {
 
         <LoginForm />
 
-        {/* DEV :: Testverktøy */}
-        <Paper radius="md" p="md" withBorder bg="var(--mantine-color-gray-0)">
-          <Divider label="DEV :: Testinnlogging" labelPosition="center" mb="sm" />
-          <Stack gap="xs">
-            <Button variant="light" color="gray" size="xs" onClick={() => onStaticLoginClick(credentials[0])}>
-              DEV :: Login Admin
-            </Button>
-            <Button variant="light" color="gray" size="xs" onClick={() => onStaticLoginClick(credentials[1])}>
-              DEV :: Login User 1
-            </Button>
-            <Button variant="light" color="gray" size="xs" onClick={() => onStaticLoginClick(credentials[2])}>
-              DEV :: Login User 2
-            </Button>
-          </Stack>
-        </Paper>
+        <Divider label="eller" labelPosition="center" my="xs" />
+
+        <GoogleLogin />
+
+        {/* DEV :: Testverktøy (Kjører kun lokalt/i development) */}
+        {process.env.NODE_ENV === "development" && (
+          <Paper radius="md" p="md" withBorder bg="var(--mantine-color-gray-0)">
+            <Divider label="DEV :: Testinnlogging" labelPosition="center" mb="sm" />
+            <Stack gap="xs">
+              <Button
+                variant="light"
+                color="gray"
+                size="xs"
+                onClick={() => handleStaticLogin(credentials[0])}
+              >
+                DEV :: Login Admin
+              </Button>
+              <Button
+                variant="light"
+                color="gray"
+                size="xs"
+                onClick={() => handleStaticLogin(credentials[1])}
+              >
+                DEV :: Login User 1
+              </Button>
+              <Button
+                variant="light"
+                color="gray"
+                size="xs"
+                onClick={() => handleStaticLogin(credentials[2])}
+              >
+                DEV :: Login User 2
+              </Button>
+            </Stack>
+          </Paper>
+        )}
       </Stack>
     </Container>
   );
-}
+};
 
-export default LoginPage
+export default LoginPage;
