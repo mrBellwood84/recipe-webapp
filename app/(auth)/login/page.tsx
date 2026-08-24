@@ -6,7 +6,7 @@ import {LoginRequestDTO} from "@/lib/models/auth/loginRequestDTO";
 import {User} from "@/lib/models/user/user";
 import {HttpResponse} from "@/lib/models/httpResponse";
 import {useSession} from "@/lib/session/SessionProvider";
-import {redirect} from "next/navigation";
+import {useRouter} from "next/navigation";
 
 const credentials: LoginRequestDTO[] = [
   { email: "admin@recipeapp.com", password: "AdminSuperSecretPassword123!" },
@@ -16,6 +16,7 @@ const credentials: LoginRequestDTO[] = [
 
 const LoginPage = () => {
   const session = useSession();
+  const router = useRouter();
 
   const onStaticLoginClick = (user: LoginRequestDTO) => {
     agentInternal.post("/api/auth/login", user)
@@ -25,12 +26,12 @@ const LoginPage = () => {
           case 200:
             session.setUser(data.body);
             session.setRole(data.body?.role)
-            if (data.body?.role === "Admin") redirect("/admin/dashboard");
-            else redirect("/dashboard");
+            if (data.body?.role === "Admin") router.push("/admin/dashboard");
+            else router.push("/dashboard");
 
         }
-        console.error("DEV :: Missing failed implementation!")
-      });
+      })
+      .catch((err) => console.error(err));
   }
   return (
     <Container>

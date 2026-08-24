@@ -28,6 +28,8 @@ export function middleware(request: NextRequest) {
     }
   }
 
+  NextResponse.next()
+
 }
 
 // Hjelpefunksjon (kun et eksempel, du må dekode din faktiske JWT)
@@ -36,7 +38,6 @@ const getUserRoleFromToken = (token: string): string | undefined  => {
     const base64Url = token.split('.')[1]
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
     const jsonPayload = Buffer.from(base64, 'base64').toString()
-    console.log("DEV :: " + jsonPayload)
     return JSON.parse(jsonPayload).role // antar at rollen ligger i 'role'
   } catch {
     return undefined

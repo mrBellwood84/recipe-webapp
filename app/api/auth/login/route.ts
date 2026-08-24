@@ -27,7 +27,6 @@ export const POST = async (request: Request) => {
     await sessionManager.setSession(data);
     const user = await sessionManager.getUserData() as User;
 
-
     const successResponse: HttpResponse<User> = {
       statusCode: 200,
       message: "Innlogging vellykket!",
