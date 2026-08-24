@@ -3,7 +3,7 @@ import {agentExternal} from "@/lib/agent/agentExternal";
 import {HttpResponse} from "@/lib/models/httpResponse";
 import sessionManager from "@/lib/session/sessionManager";
 import {User} from "@/lib/models/user/user";
-import {LoginResponseDTO} from "@/lib/models/auth/loginResponseDTO";
+import {LoginResponse} from "@/lib/models/auth/loginResponse";
 
 export const POST = async (request: Request) => {
   try {
@@ -22,7 +22,7 @@ export const POST = async (request: Request) => {
       return NextResponse.json(errorResponse, {status: response.status})
     }
 
-    const data: LoginResponseDTO = await response.json()
+    const data: LoginResponse = await response.json()
 
     await sessionManager.setSession(data);
     const user = await sessionManager.getUserData() as User;

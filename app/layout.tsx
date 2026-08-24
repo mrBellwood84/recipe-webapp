@@ -1,15 +1,15 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 
 import {
-  AppShell,
-  AppShellHeader,
   ColorSchemeScript,
   createTheme,
   mantineHtmlProps,
   MantineProvider
 } from '@mantine/core';
+import { Notifications } from '@mantine/notifications'
 import {ReactNode} from "react";
 import MainShell from "@/components/layout/MainShell";
 import {SessionProvider} from "@/lib/session/SessionProvider";
@@ -38,6 +38,7 @@ export default async function RootLayout({children}: IProps) {
     <body>
       <SessionProvider initialUser={user}>
       <MantineProvider theme={theme}>
+        <Notifications />
         <MainShell>
           {children}
         </MainShell>

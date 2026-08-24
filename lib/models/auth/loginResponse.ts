@@ -1,6 +1,6 @@
 import {UserRoleType} from "@/lib/models/types";
 
-export interface LoginResponseDTO {
+export interface LoginResponse {
   token: string
   userId: string
   userName: string
