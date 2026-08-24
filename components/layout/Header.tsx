@@ -1,9 +1,9 @@
 "use client"
 
-import {GuestHeader} from "@/components/layout/header/GuestHeader";
+import {GuestHeader} from "@/components/header/GuestHeader";
 import {useSession} from "@/lib/session/SessionProvider";
-import {AdminHeader} from "@/components/layout/header/AdminHeader";
-import {UserHeader} from "@/components/layout/header/UserHeader";
+import {AdminHeader} from "@/components/header/AdminHeader";
+import {UserHeader} from "@/components/header/UserHeader";
 
 export const Header = () => {
   const session = useSession();

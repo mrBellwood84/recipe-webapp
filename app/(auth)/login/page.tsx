@@ -2,8 +2,8 @@
 
 import { Alert, Button, Container, Divider, Paper, Stack } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
-import { LoginForm } from "@/components/layout/auth/LoginForm";
-import { GoogleLogin } from "@/components/layout/auth/GoogleLogin";
+import { LoginForm } from "@/components/auth/LoginForm";
+import { GoogleLogin } from "@/components/auth/GoogleLogin";
 import { agentInternal } from "@/lib/agent/agentInternal";
 import { LoginRequest } from "@/lib/models/auth/loginRequest";
 import { User } from "@/lib/models/user/user";
