@@ -13,11 +13,10 @@ import {
   Title,
 } from "@mantine/core";
 import Link from "next/link";
-import {useCallback, useState} from "react";
+import { useState} from "react";
 import {useRouter} from "next/navigation";
 import {useSession} from "@/lib/session/SessionProvider";
 import {hasLength, isEmail, useForm} from "@mantine/form";
-import {values} from "eslint-config-next";
 import {agentInternal} from "@/lib/agent/agentInternal";
 import {HttpResponse} from "@/lib/models/httpResponse";
 import {User} from "@/lib/models/user/user";
