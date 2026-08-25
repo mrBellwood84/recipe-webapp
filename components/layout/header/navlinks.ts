@@ -4,8 +4,8 @@ export interface NavItem {
 }
 
 export const GUEST_LINKS: NavItem[] = [
-  { label: "Hva får du?", href: "/#funksjoner" },
-  { label: "Om appen", href: "/#om" },
+  { label: "Hva får du?", href: "/features" },
+  { label: "Om appen", href: "/about" },
 ];
 
 export const USER_LINKS: NavItem[] = [

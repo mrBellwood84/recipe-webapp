@@ -1,10 +1,10 @@
 import {MarkdownContentContainer} from "@/components/containers/MarkdownContentContainer";
 
-const AboutPage = () => {
+const FeaturePage = () => {
   return <MarkdownContentContainer
-    title="Om Kjøkkenhylla"
-    filePath="/docs/info/about.md"
+    title="Funksjoner - WIP"
+    filePath="/docs/info/features.md"
   />
 }
 
-export default AboutPage;
+export default FeaturePage;

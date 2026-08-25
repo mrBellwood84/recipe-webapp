@@ -1,6 +1,6 @@
 import {Container, Divider, Stack} from "@mantine/core";
-import {RegisterForm} from "@/components/auth/RegisterForm";
-import {GoogleRegister} from "@/components/auth/GoogleRegister";
+import {RegisterForm} from "@/components/forms/auth/RegisterForm";
+import {GoogleRegister} from "@/components/forms/auth/GoogleRegister";
 
 const RegisterPage = () => {
   return (

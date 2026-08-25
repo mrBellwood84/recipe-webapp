@@ -1,17 +1,18 @@
 "use client";
 
 import React from "react";
-import { Grid, GridColProps, PasswordInput, TextInput } from "@mantine/core";
+import { Grid, GridColProps, PasswordInput, TextInput, Textarea } from "@mantine/core";
 import { useAppFormContext } from "./FormContext";
 
 interface FormFieldProps {
   name: string;
   label: string;
   placeholder?: string;
-  type?: "text" | "password" | "email";
+  type?: "text" | "password" | "email" | "textarea";
   required?: boolean;
   disabled?: boolean;
   span?: GridColProps["span"];
+  minRows?: number;
   extra?: React.ReactNode;
 }
 
@@ -23,10 +24,14 @@ export const FormField = ({
                             required = false,
                             disabled = false,
                             span = 12,
+                            minRows = 3,
                             extra,
                           }: FormFieldProps) => {
   const form = useAppFormContext();
-  const InputComponent = type === "password" ? PasswordInput : TextInput;
+
+  let InputComponent: React.ElementType = TextInput;
+  if (type === "password") InputComponent = PasswordInput;
+  if (type === "textarea") InputComponent = Textarea;
 
   return (
     <Grid.Col span={span}>
@@ -35,6 +40,7 @@ export const FormField = ({
         placeholder={placeholder}
         withAsterisk={required}
         disabled={disabled}
+        {...(type === "textarea" ? { minRows } : {})}
         key={form.key(name)}
         {...form.getInputProps(name)}
       />

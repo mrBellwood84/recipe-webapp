@@ -1,5 +1,5 @@
 import {Container} from "@mantine/core";
-import {ForgotPasswordForm} from "@/components/auth/ForgotPasswordForm";
+import {ForgotPasswordForm} from "@/components/forms/auth/ForgotPasswordForm";
 
 const ForgotPasswordPage = () => {
   return (

@@ -1,5 +1,10 @@
+import {MarkdownContentContainer} from "@/components/containers/MarkdownContentContainer";
+
 const Status = () => {
-  return <div>Status</div>
+  return <MarkdownContentContainer
+    title="Status - WIP"
+    filePath="/docs/info/status.md"
+  />
 }
 
 export default Status;
