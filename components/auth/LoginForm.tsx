@@ -1,15 +1,18 @@
-"use client"
+"use client";
 
-import {Alert, Anchor, Button, Group, Paper, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
-import {hasLength, isEmail, useForm} from "@mantine/form";
-import {LoginRequest} from "@/lib/models/auth/loginRequest";
-import {agentInternal} from "@/lib/agent/agentInternal";
-import {useState} from "react";
-import {HttpResponse} from "@/lib/models/httpResponse";
-import {LoginResponse} from "@/lib/models/auth/loginResponse";
-import {useRouter} from "next/navigation";
-import {useSession} from "@/lib/session/SessionProvider";
+import { useState } from "react";
+import { Anchor, Group } from "@mantine/core";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {useForm, isEmail,  isNotEmpty} from "@mantine/form";
+import { agentInternal } from "@/lib/agent/agentInternal";
+import { useSession } from "@/lib/session/SessionProvider";
+import { LoginRequest } from "@/lib/models/auth/loginRequest";
+import { HttpResponse } from "@/lib/models/httpResponse";
+import { LoginResponse } from "@/lib/models/auth/loginResponse";
+import { AppFormProvider } from "@/components/forms/common/FormContext";
+import { FormContainer } from "@/components/forms/common/FormContainer";
+import { FormField } from "@/components/forms/common/FormField";
 
 export const LoginForm = () => {
   const [requestActive, setRequestActive] = useState<boolean>(false);
@@ -18,7 +21,8 @@ export const LoginForm = () => {
   const router = useRouter();
   const session = useSession();
 
-  const form = useForm({
+  // Bruk useForm<LoginRequest> for full type-sikkerhet
+  const form = useForm<LoginRequest>({
     mode: "controlled",
     initialValues: {
       email: "",
@@ -26,18 +30,17 @@ export const LoginForm = () => {
     },
     validate: {
       email: isEmail("Ikke gyldig epost"),
-      password: hasLength({min: 1}, "Passord mangler")
-    }
+      password: isNotEmpty("Passord mangler"),
+    },
   });
 
-  const submitHandler = async (value: typeof form.values) => {
+  const submitHandler = async (value: LoginRequest) => {
     setRequestActive(true);
     setLoginFailedMessage(undefined);
 
     try {
-      const credentials: LoginRequest = value;
-      const res = await agentInternal.post("/api/auth/login", credentials);
-      const data = await res.json() as unknown as HttpResponse<LoginResponse>;
+      const res = await agentInternal.post("/api/auth/login", value);
+      const data = (await res.json()) as HttpResponse<LoginResponse>;
 
       if (res.status === 200 && data.body) {
         session.setUser(data.body);
@@ -63,49 +66,38 @@ export const LoginForm = () => {
   };
 
   return (
-    <Paper radius="md" p="xl" withBorder>
-      <Title order={2} ta="center" mb="lg">
-        Logg inn
-      </Title>
+    <AppFormProvider form={form}>
+      <FormContainer
+        title="Logg inn"
+        onSubmit={form.onSubmit(submitHandler)}
+        submitText="Logg inn"
+        loading={requestActive}
+        errorMessage={loginFailedMessage}
+      >
+        <FormField
+          name="email"
+          label="E-post"
+          placeholder="din@epost.no"
+          required
+          disabled={requestActive}
+        />
 
-      <form onSubmit={form.onSubmit(submitHandler)}>
-        <Stack gap="md">
-          <TextInput
-            label="E-post"
-            placeholder="din@epost.no"
-            withAsterisk
-            disabled={requestActive}
-            key={form.key("email")}
-            {...form.getInputProps("email")}
-          />
-
-          <div>
-            <PasswordInput
-              label="Passord"
-              placeholder="Passord"
-              withAsterisk
-              disabled={requestActive}
-              key={form.key("password")}
-              {...form.getInputProps("password")}
-            />
+        <FormField
+          name="password"
+          type="password"
+          label="Passord"
+          placeholder="Passord"
+          required
+          disabled={requestActive}
+          extra={
             <Group justify="flex-end" mt={4}>
               <Anchor component={Link} href="/recover" size="xs" c="dimmed">
                 Glemt passord?
               </Anchor>
             </Group>
-          </div>
-
-          {loginFailedMessage && (
-            <Alert color="red" variant="light" radius="md" title="Feil ved innlogging">
-              {loginFailedMessage}
-            </Alert>
-          )}
-
-          <Button type="submit" loading={requestActive} fullWidth mt="xs">
-            Logg inn
-          </Button>
-        </Stack>
-      </form>
-    </Paper>
+          }
+        />
+      </FormContainer>
+    </AppFormProvider>
   );
 };

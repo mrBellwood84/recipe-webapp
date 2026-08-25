@@ -1,39 +1,55 @@
 "use client";
 
-import {Anchor, Button, Paper, Stack, Text, TextInput, Title,} from "@mantine/core";
+import { Anchor } from "@mantine/core";
 import Link from "next/link";
+import { useForm, isEmail } from "@mantine/form";
+import { FormContainer } from "@/components/forms/common/FormContainer";
+import { FormField } from "@/components/forms/common/FormField";
+import { AppFormProvider } from "@/components/forms/common/FormContext";
+
+interface ForgotPasswordFormValues {
+  email: string;
+}
 
 export const ForgotPasswordForm = () => {
+  const form = useForm<ForgotPasswordFormValues>({
+    mode: "controlled",
+    initialValues: {
+      email: "",
+    },
+    validate: {
+      email: isEmail("Ikke gyldig epost"),
+    },
+  });
+
+  const submitHandler = async (values: ForgotPasswordFormValues) => {
+    // Logikk implementeres når tilbakestilling av passord er klargjort på backend
+  };
+
   return (
-    <Paper radius="md" p="xl" withBorder>
-      <Title order={2} ta="center" mb="xs">
-        Glemt passord?
-      </Title>
-
-      <Text c="dimmed" size="sm" ta="center" mb="lg">
-        Skriv inn e-postadressen din, så sender vi deg instruksjoner for å tilbakestille passordet.
-      </Text>
-
-      <form onSubmit={(e) => e.preventDefault()}>
-        <Stack gap="md">
-          <TextInput
-            label="E-post"
-            placeholder="din@epost.no"
-            withAsterisk
-          />
-
-          <Button type="submit" disabled fullWidth mt="xs">
-            Send tilbakestillingslenke (Kommer snart)
-          </Button>
-        </Stack>
-      </form>
-
-      <Text ta="center" size="sm" mt="md" c="dimmed">
-        Husket du passordet allikevel?{" "}
-        <Anchor component={Link} href="/login" size="sm" fw={500}>
-          Logg inn
-        </Anchor>
-      </Text>
-    </Paper>
+    <AppFormProvider form={form}>
+      <FormContainer
+        title="Glemt passord?"
+        description="Skriv inn e-postadressen din, så sender vi deg instruksjoner for å tilbakestille passordet."
+        onSubmit={form.onSubmit(submitHandler)}
+        submitText="Send tilbakestillingslenke (Kommer snart)"
+        disabled
+        footer={
+          <>
+            Husket du passordet allikevel?{" "}
+            <Anchor component={Link} href="/login" size="sm" fw={500}>
+              Logg inn
+            </Anchor>
+          </>
+        }
+      >
+        <FormField
+          name="email"
+          label="E-post"
+          placeholder="din@epost.no"
+          required
+        />
+      </FormContainer>
+    </AppFormProvider>
   );
 };

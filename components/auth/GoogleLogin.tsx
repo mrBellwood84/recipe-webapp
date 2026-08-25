@@ -1,9 +1,10 @@
-import {Button, Paper} from "@mantine/core";
+import { Button } from "@mantine/core";
 import Image from "next/image";
+import {AuthCard} from "@/components/forms/common/AuthCard";
 
 export const GoogleLogin = () => {
   return (
-    <Paper radius="md" p="md" withBorder>
+    <AuthCard>
       <Button
         variant="default"
         fullWidth
@@ -19,6 +20,6 @@ export const GoogleLogin = () => {
       >
         Logg inn med Google (Kommer snart)
       </Button>
-    </Paper>
+    </AuthCard>
   );
 };
