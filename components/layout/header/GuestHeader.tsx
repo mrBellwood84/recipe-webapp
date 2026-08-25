@@ -2,7 +2,7 @@
 
 import { Anchor, Button, Container, Group } from "@mantine/core";
 import Link from "next/link";
-import {Logo} from "@/components/header/Logo";
+import {Logo} from "@/components/layout/header/Logo";
 
 export const GuestHeader = () => {
   return (

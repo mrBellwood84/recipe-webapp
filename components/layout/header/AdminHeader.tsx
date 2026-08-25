@@ -5,7 +5,7 @@ import { agentInternal } from "@/lib/agent/agentInternal";
 import { useRouter } from "next/navigation";
 import { Anchor, Badge, Button, Container, Group } from "@mantine/core";
 import Link from "next/link";
-import {Logo} from "@/components/header/Logo";
+import {Logo} from "@/components/layout/header/Logo";
 
 export const AdminHeader = () => {
   const session = useSession();

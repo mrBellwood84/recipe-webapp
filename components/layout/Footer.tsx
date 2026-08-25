@@ -20,8 +20,8 @@ export const Footer = () => {
       <Divider />
       <Container size="lg" py="xl">
         <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing="xl" mb="xl">
-          {/* Kolonne 1: Om appen */}
-          <Stack gap="xs" style={{ gridColumn: "span 2" }}>
+          {/* Kolonne 1: Brand & Visjon */}
+          <Stack gap="xs">
             <Group gap="xs">
               <Title order={3} c="brand">
                 Kjøkkenhylla
@@ -30,10 +30,10 @@ export const Footer = () => {
                 Smidig matmestring
               </Badge>
             </Group>
-            <Text size="sm" c="dimmed" style={{ maxWidth: 440 }}>
-              Samle dine egne oppskrifter eller skrap dem direkte fra favorittsidene dine på nettet.
-              Tilpass ingredienser, få full oversikt over næringsinnhold og allergener, og planlegg
-              ukehandling og måltider – alt samlet på din personlige profil.
+            <Text size="sm" c="dimmed">
+              Samle dine egne oppskrifter eller skrap dem fra nettet. Tilpass ingredienser,
+              få full oversikt over næringsinnhold og allergener, og planlegg måltider –
+              alt på din personlige profil.
             </Text>
           </Stack>
 
@@ -61,19 +61,41 @@ export const Footer = () => {
             </Anchor>
           </Stack>
 
-          {/* Kolonne 3: Tilgang & Konto */}
+          {/* Kolonne 3: Om & Kontakt */}
           <Stack gap="xs">
             <Text fw={600} size="sm">
-              Kom i gang
+              Om oss
             </Text>
-            <Anchor component={Link} href="/login" size="sm" c="dimmed">
-              Logg inn
+            <Anchor component={Link} href="/about" size="sm" c="dimmed">
+              Om Kjøkkenhylla
             </Anchor>
-            <Anchor component={Link} href="/register" size="sm" c="dimmed">
-              Opprett ny konto
+            <Anchor component={Link} href="/contact" size="sm" c="dimmed">
+              Kontakt oss
             </Anchor>
-            <Anchor component={Link} href="/recover" size="sm" c="dimmed">
-              Glemt passord
+            <Anchor component={Link} href="/faq" size="sm" c="dimmed">
+              Hjelp & FAQ
+            </Anchor>
+            <Anchor component={Link} href="/status" size="sm" c="dimmed">
+              Systemstatus
+            </Anchor>
+          </Stack>
+
+          {/* Kolonne 4: Juridisk & Personvern */}
+          <Stack gap="xs">
+            <Text fw={600} size="sm">
+              Juridisk
+            </Text>
+            <Anchor component={Link} href="/privacy" size="sm" c="dimmed">
+              Personvernerklæring
+            </Anchor>
+            <Anchor component={Link} href="/terms" size="sm" c="dimmed">
+              Brukervilkår
+            </Anchor>
+            <Anchor component={Link} href="/cookies" size="sm" c="dimmed">
+              Informasjonskapsler
+            </Anchor>
+            <Anchor component={Link} href="/accessibility" size="sm" c="dimmed">
+              Tilgjengelighet
             </Anchor>
           </Stack>
         </SimpleGrid>

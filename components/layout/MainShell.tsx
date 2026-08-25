@@ -1,30 +1,33 @@
-import {ReactNode} from "react";
-import {AppShell, AppShellFooter, AppShellHeader, AppShellMain} from "@mantine/core";
-import {Header} from "@/components/layout/Header";
-import {Footer} from "@/components/layout/Footer";
+"use client";
+
+import { ReactNode } from "react";
+import { AppShell, AppShellHeader, AppShellMain, Box } from "@mantine/core";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 interface IProps {
   children: ReactNode;
 }
 
-const MainShell = ({children}: IProps) => {
+const MainShell = ({ children }: IProps) => {
   return (
-    <AppShell
-      padding="sm"
-      header={{height:48}}>
+    <AppShell padding="sm" header={{ height: 48 }}>
       <AppShellHeader>
-        <Header/>
+        <Header />
       </AppShellHeader>
 
-      <AppShellMain>
-        {children}
+      <AppShellMain
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
+      >
+        <Box style={{ flex: 1 }}>{children}</Box>
+        <Footer />
       </AppShellMain>
-
-      <AppShellFooter>
-        <Footer/>
-      </AppShellFooter>
     </AppShell>
-  )
-}
+  );
+};
 
-export default MainShell
+export default MainShell;

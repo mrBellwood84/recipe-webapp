@@ -1,0 +1,27 @@
+<svg
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+>
+    <rect width="32" height="32" rx="8" fill="#228be6" />
+
+    <rect x="5" y="23" width="22" height="2" rx="1" fill="white" opacity="0.9" />
+
+    <path
+            d="M8.5 15.5C8.5 14.6716 9.17157 14 10 14H13C13.8284 14 14.5 14.6716 14.5 15.5V23H8.5V15.5Z"
+            fill="white"
+            opacity="0.85"
+    />
+    <rect x="9" y="12.5" width="5" height="1.5" rx="0.75" fill="white" />
+
+    <path
+            d="M16 10.5C16 9.67157 16.6716 9 17.5 9H21.5C22.3284 9 23 9.67157 23 10.5V23H16V10.5Z"
+            fill="white"
+    />
+
+    <path d="M18 9V15L19.75 13.5L21.5 15V9H18Z" fill="#228be6" />
+
+    <circle cx="11.5" cy="9.5" r="1.2" fill="white" opacity="0.9" />
+</svg>
