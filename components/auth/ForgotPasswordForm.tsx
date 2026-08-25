@@ -3,7 +3,7 @@
 import { Anchor } from "@mantine/core";
 import Link from "next/link";
 import { useForm, isEmail } from "@mantine/form";
-import { FormContainer } from "@/components/forms/common/FormContainer";
+import { CreateFormContainer } from "@/components/forms/common/CreateFormContainer";
 import { FormField } from "@/components/forms/common/FormField";
 import { AppFormProvider } from "@/components/forms/common/FormContext";
 
@@ -28,7 +28,7 @@ export const ForgotPasswordForm = () => {
 
   return (
     <AppFormProvider form={form}>
-      <FormContainer
+      <CreateFormContainer
         title="Glemt passord?"
         description="Skriv inn e-postadressen din, så sender vi deg instruksjoner for å tilbakestille passordet."
         onSubmit={form.onSubmit(submitHandler)}
@@ -49,7 +49,7 @@ export const ForgotPasswordForm = () => {
           placeholder="din@epost.no"
           required
         />
-      </FormContainer>
+      </CreateFormContainer>
     </AppFormProvider>
   );
 };

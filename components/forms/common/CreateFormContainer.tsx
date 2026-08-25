@@ -51,14 +51,14 @@ export interface FormContainerProps {
  *
  * @example
  * ```tsx
- * <FormContainer * description="Fyll inn e-post og passord" errorMessage="{error}" footer="{<Anchor" href="/register" loading="{isLoading}" onSubmit="{form.onSubmit(handleSubmit)}" submitText="Logg inn" title="Logg inn">Har du ikke konto?</Anchor>}
+ * <CreateFormContainer * description="Fyll inn e-post og passord" errorMessage="{error}" footer="{<Anchor" href="/register" loading="{isLoading}" onSubmit="{form.onSubmit(handleSubmit)}" submitText="Logg inn" title="Logg inn">Har du ikke konto?</Anchor>}
  * >
  *   <FormField label="E-post" name="email" required/>
  *   <FormField label="Passord" name="password" required type="password"/>
- * </FormContainer>
+ * </CreateFormContainer>
  * ```
  */
-export const FormContainer = ({
+export const CreateFormContainer = ({
                                 title,
                                 description,
                                 onSubmit,

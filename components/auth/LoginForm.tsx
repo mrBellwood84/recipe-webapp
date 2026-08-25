@@ -11,7 +11,7 @@ import { LoginRequest } from "@/lib/models/auth/loginRequest";
 import { HttpResponse } from "@/lib/models/httpResponse";
 import { LoginResponse } from "@/lib/models/auth/loginResponse";
 import { AppFormProvider } from "@/components/forms/common/FormContext";
-import { FormContainer } from "@/components/forms/common/FormContainer";
+import { CreateFormContainer } from "@/components/forms/common/CreateFormContainer";
 import { FormField } from "@/components/forms/common/FormField";
 
 export const LoginForm = () => {
@@ -67,7 +67,7 @@ export const LoginForm = () => {
 
   return (
     <AppFormProvider form={form}>
-      <FormContainer
+      <CreateFormContainer
         title="Logg inn"
         onSubmit={form.onSubmit(submitHandler)}
         submitText="Logg inn"
@@ -97,7 +97,7 @@ export const LoginForm = () => {
             </Group>
           }
         />
-      </FormContainer>
+      </CreateFormContainer>
     </AppFormProvider>
   );
 };

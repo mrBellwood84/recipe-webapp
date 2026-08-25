@@ -10,7 +10,7 @@ import { useSession } from "@/lib/session/SessionProvider";
 import { HttpResponse } from "@/lib/models/httpResponse";
 import { User } from "@/lib/models/user/user";
 import { AppFormProvider } from "@/components/forms/common/FormContext";
-import { FormContainer } from "@/components/forms/common/FormContainer";
+import { CreateFormContainer } from "@/components/forms/common/CreateFormContainer";
 import { FormField } from "@/components/forms/common/FormField";
 import { RegisterRequest } from "@/lib/models/auth/registerRequest";
 
@@ -80,7 +80,7 @@ export const RegisterForm = () => {
 
   return (
     <AppFormProvider form={form}>
-      <FormContainer
+      <CreateFormContainer
         title="Opprett ny bruker"
         onSubmit={form.onSubmit(submitHandler)}
         submitText="Registrer bruker"
@@ -138,7 +138,7 @@ export const RegisterForm = () => {
           required
           disabled={requestActive}
         />
-      </FormContainer>
+      </CreateFormContainer>
     </AppFormProvider>
   );
 };
