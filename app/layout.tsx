@@ -1,7 +1,10 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import '@mantine/charts/styles.css';
 import '@mantine/notifications/styles.css';
+
 
 import {ColorSchemeScript, createTheme, mantineHtmlProps, MantineProvider} from '@mantine/core';
 import {Notifications} from '@mantine/notifications'

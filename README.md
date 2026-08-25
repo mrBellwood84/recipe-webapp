@@ -1,42 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [
-`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kjøkkenhylla
 
-## Getting Started
+**Kjøkkenhylla** er en webapplikasjon utviklet for privat organisering av oppskrifter, ukentlig måltidsplanlegging, generering av handlelister og oversikt over næringsinnhold.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Funksjonalitet
+
+* **Oppskriftshåndtering:** Lagre egne oppskrifter manuelt eller importer direkte fra et utvalg godkjente nettsteder.
+* **Måltidsplanlegging:** Planlegg måltider på dags- og ukesbasis.
+* **Handleliste:** Generer strukturerte handlelister basert på lagrede måltidsplaner.
+* **Næringsinnhold & Veiledning:** Få oversikt over energi, makronæringsstoffer (proteiner, fett, karbohydrater, fiber), sukker og vitaminer – både per ingrediens, per måltid og akkummulert på ukesbasis.
+> **Merk:** Næringsberegningene er kun veiledende og utgjør ikke medisinsk eller helsefaglig rådgivning. Se brukervilkår for mer detaljer.
+
+
+* **Brukeradministrasjon:** Opprettelse, oppdatering og sletting av brukerkonto samt personlige innstillinger.
+
+---
+
+## Arkitektur & Økosystem
+
+Applikasjonen er den primære brukerflaten i et økosystem bestående av tre samarbeidende tjenester:
+
+1. **`recipe-webapp` (Denne appen):** Frontend og server-side proxy bygget i Next.js.
+2. **Eksternt API:** Sentralt API for autentisering, lagring og håndtering av bruker- og oppskriftsdata.
+3. **Skrapetjeneste:** Egen mikrotjeneste som håndterer import og uthenting av oppskrifter fra godkjente eksterne nettsteder via API.
+
+Internt benytter frontend-applikasjonen dedikerte HTTP-agenter (`agentInternal` for server-side API-ruter og `agentExternal` for direkte REST-kall mot ekstern backend).
+
+---
+
+## Teknologistakk
+
+| Kategori | Teknologi |
+| --- | --- |
+| **Rammeverk & Språk** | Next.js 16 (App Router), React 19, TypeScript |
+| **UI & Styling** | Mantine v9 (`@mantine/core`, `@mantine/form`, `@mantine/notifications`), PostCSS |
+| **Datavisualisering** | Mantine Charts, Recharts |
+| **Ikoner & Verktøy** | Tabler Icons, Dayjs, React Markdown |
+
+---
+
+## Miljøvariabler (`.env`)
+
+Konfigurer følgende variabler i din `.env`-fil i rotmappen:
+
+```env
+# URL til sentral autentiserings- og data-API
+AUTH_API=http://localhost:5194
+
+# URL til oppskrifts-API (kommende)
+RECIPE_API=http://localhost:xxxx
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Komme i gang
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically
-optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Forutsetninger
 
-## Learn More
+* Node.js (versjon 20 eller nyere anbefales)
+* `npm`
 
-To learn more about Next.js, take a look at the following resources:
+### Installasjon
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Klon repositoriet og installer avhengigheter:**
+```bash
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions
-are welcome!
+```
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use
-the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
+2. **Start utviklingsserveren:**
+```bash
+npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for
-more details.
+```
+
+
+3. Åpne `http://localhost:3000` i nettleseren.
+
+---
+
+## Containerisering (Docker)
+
+Prosjektet er klargjort for containerisering. Dockerfile og `docker-compose.yml` vil bli lagt til for å forenkle lokal kjøring sammen med de øvrige mikrotjenestene i økosystemet.
+
+---
+
+## Juridisk & Dokumentasjon
+
+Offentlig informasjon og vilkår ligger tilgjengelig under `public/docs/legal/`:
+
+* `accessibility.md` – Tilgjengelighetserklæring
+* `cookies.md` – Informasjon om informasjonskapsler
+* `privacy.md` – Personvernerklæring
+* `terms.md` – Brukervilkår
+
+Ytterligere informasjonsdokumenter blir tilgjengelig under `public/docs/info/`.
