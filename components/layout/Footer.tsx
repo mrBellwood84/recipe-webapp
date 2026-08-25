@@ -1,25 +1,14 @@
 "use client";
 
-import {
-  Anchor,
-  Badge,
-  Box,
-  Container,
-  Divider,
-  Group,
-  SimpleGrid,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import {Anchor, Badge, Box, Container, Divider, Group, SimpleGrid, Stack, Text, Title,} from "@mantine/core";
 import Link from "next/link";
 
 export const Footer = () => {
   return (
     <Box bg="var(--mantine-color-body)" mt={80} component="footer">
-      <Divider />
+      <Divider/>
       <Container size="lg" py="xl">
-        <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing="xl" mb="xl">
+        <SimpleGrid cols={{base: 1, sm: 2, md: 4}} spacing="xl" mb="xl">
           {/* Kolonne 1: Brand & Visjon */}
           <Stack gap="xs">
             <Group gap="xs">
@@ -100,7 +89,7 @@ export const Footer = () => {
           </Stack>
         </SimpleGrid>
 
-        <Divider my="sm" />
+        <Divider my="sm"/>
 
         <Group justify="space-between" align="center" pt="xs">
           <Text size="xs" c="dimmed">

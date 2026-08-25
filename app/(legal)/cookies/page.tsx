@@ -1,5 +1,10 @@
+import {MarkdownContentContainer} from "@/components/containers/MarkdownContentContainer";
+
 const CookiePage = () => {
-  return <div>cookie</div>;
+  return <MarkdownContentContainer
+    title="Informasjonskapsler"
+    filePath="/docs/legal/cookies.md"
+  />
 }
 
 export default CookiePage;

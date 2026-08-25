@@ -1,24 +1,14 @@
 "use client"
 
-import {
-  Alert,
-  Anchor,
-  Button,
-  Group,
-  Paper,
-  PasswordInput,
-  Stack,
-  TextInput,
-  Title
-} from "@mantine/core";
-import { useForm, isEmail, hasLength } from "@mantine/form";
-import { LoginRequest } from "@/lib/models/auth/loginRequest";
-import { agentInternal } from "@/lib/agent/agentInternal";
-import { useState } from "react";
-import { HttpResponse } from "@/lib/models/httpResponse";
-import { LoginResponse } from "@/lib/models/auth/loginResponse";
-import { useRouter } from "next/navigation";
-import { useSession } from "@/lib/session/SessionProvider";
+import {Alert, Anchor, Button, Group, Paper, PasswordInput, Stack, TextInput, Title} from "@mantine/core";
+import {hasLength, isEmail, useForm} from "@mantine/form";
+import {LoginRequest} from "@/lib/models/auth/loginRequest";
+import {agentInternal} from "@/lib/agent/agentInternal";
+import {useState} from "react";
+import {HttpResponse} from "@/lib/models/httpResponse";
+import {LoginResponse} from "@/lib/models/auth/loginResponse";
+import {useRouter} from "next/navigation";
+import {useSession} from "@/lib/session/SessionProvider";
 import Link from "next/link";
 
 export const LoginForm = () => {
@@ -36,7 +26,7 @@ export const LoginForm = () => {
     },
     validate: {
       email: isEmail("Ikke gyldig epost"),
-      password: hasLength({ min: 1 }, "Passord mangler")
+      password: hasLength({min: 1}, "Passord mangler")
     }
   });
 

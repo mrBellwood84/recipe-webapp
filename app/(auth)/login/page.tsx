@@ -1,19 +1,19 @@
 "use client";
 
-import { Alert, Button, Container, Divider, Paper, Stack } from "@mantine/core";
-import { useRouter, useSearchParams } from "next/navigation";
-import { LoginForm } from "@/components/auth/LoginForm";
-import { GoogleLogin } from "@/components/auth/GoogleLogin";
-import { agentInternal } from "@/lib/agent/agentInternal";
-import { LoginRequest } from "@/lib/models/auth/loginRequest";
-import { User } from "@/lib/models/user/user";
-import { HttpResponse } from "@/lib/models/httpResponse";
-import { useSession } from "@/lib/session/SessionProvider";
+import {Alert, Button, Container, Divider, Paper, Stack} from "@mantine/core";
+import {useRouter, useSearchParams} from "next/navigation";
+import {LoginForm} from "@/components/auth/LoginForm";
+import {GoogleLogin} from "@/components/auth/GoogleLogin";
+import {agentInternal} from "@/lib/agent/agentInternal";
+import {LoginRequest} from "@/lib/models/auth/loginRequest";
+import {User} from "@/lib/models/user/user";
+import {HttpResponse} from "@/lib/models/httpResponse";
+import {useSession} from "@/lib/session/SessionProvider";
 
 const credentials: LoginRequest[] = [
-  { email: "admin@recipeapp.com", password: "AdminSuperSecretPassword123!" },
-  { email: "user1@example.com", password: "DevUser123!" },
-  { email: "user2@example.com", password: "DevUser123!" },
+  {email: "admin@recipeapp.com", password: "AdminSuperSecretPassword123!"},
+  {email: "user1@example.com", password: "DevUser123!"},
+  {email: "user2@example.com", password: "DevUser123!"},
 ];
 
 const LoginPage = () => {
@@ -47,16 +47,16 @@ const LoginPage = () => {
           </Alert>
         )}
 
-        <LoginForm />
+        <LoginForm/>
 
-        <Divider label="eller" labelPosition="center" my="xs" />
+        <Divider label="eller" labelPosition="center" my="xs"/>
 
-        <GoogleLogin />
+        <GoogleLogin/>
 
         {/* DEV :: Testverktøy (Kjører kun lokalt/i development) */}
         {process.env.NODE_ENV === "development" && (
           <Paper radius="md" p="md" withBorder bg="var(--mantine-color-gray-0)">
-            <Divider label="DEV :: Testinnlogging" labelPosition="center" mb="sm" />
+            <Divider label="DEV :: Testinnlogging" labelPosition="center" mb="sm"/>
             <Stack gap="xs">
               <Button
                 variant="light"

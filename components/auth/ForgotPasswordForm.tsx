@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Anchor,
-  Button,
-  Paper,
-  Stack,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import {Anchor, Button, Paper, Stack, Text, TextInput, Title,} from "@mantine/core";
 import Link from "next/link";
 
 export const ForgotPasswordForm = () => {

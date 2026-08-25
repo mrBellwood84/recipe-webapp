@@ -9,8 +9,8 @@ export const Header = () => {
   const session = useSession();
   const role = session.role;
 
-  if (role === "Admin") return <AdminHeader />;
-  if (role === "User") return <UserHeader />;
-  return <GuestHeader />;
+  if (role === "Admin") return <AdminHeader/>;
+  if (role === "User") return <UserHeader/>;
+  return <GuestHeader/>;
 
 }

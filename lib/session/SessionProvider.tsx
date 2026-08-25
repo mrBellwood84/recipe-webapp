@@ -1,6 +1,6 @@
 "use client"
 
-import {ReactNode, createContext, useContext, useState} from "react";
+import {createContext, ReactNode, useContext, useState} from "react";
 import {UserRoleType} from "@/lib/models/types";
 import {User} from "@/lib/models/user/user";
 
@@ -24,7 +24,7 @@ export const SessionProvider = ({initialUser, children}: Props) => {
   const [user, setUser] = useState<User | undefined>(initialUser);
   const [role, setRole] = useState<UserRoleType | undefined>(initialUser?.role);
 
-  return <SessionContext.Provider value={{ user, role, setUser, setRole }}>{children}</SessionContext.Provider>;
+  return <SessionContext.Provider value={{user, role, setUser, setRole}}>{children}</SessionContext.Provider>;
 }
 
 export const useSession = () => {

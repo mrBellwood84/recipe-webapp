@@ -3,14 +3,14 @@ export const agentInternal = {
     return await fetch(url, {
       method: 'GET',
       mode: 'same-origin',
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
     })
   },
   post: async (url: string, body: object) => {
     return await fetch(url, {
       method: 'POST',
       mode: "same-origin",
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(body),
     })
   },
@@ -18,7 +18,7 @@ export const agentInternal = {
     return await fetch(url, {
       method: 'PUT',
       mode: 'same-origin',
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(body),
     })
   },
@@ -26,7 +26,7 @@ export const agentInternal = {
     return await fetch(url, {
       method: 'DELETE',
       mode: 'same-origin',
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(body),
     })
   },

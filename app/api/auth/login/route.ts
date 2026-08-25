@@ -35,14 +35,13 @@ export const POST = async (request: Request) => {
     }
 
     return NextResponse.json(successResponse, {status: response.status});
-  }
-  catch {
+  } catch {
     const errorResponse: HttpResponse<undefined> = {
       statusCode: 500,
       message: "Kunne ikke koble mot server...",
       timestamp: new Date().toISOString()
     }
 
-    return NextResponse.json(errorResponse, { status: 500});
+    return NextResponse.json(errorResponse, {status: 500});
   }
 }

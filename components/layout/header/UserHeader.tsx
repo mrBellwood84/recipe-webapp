@@ -1,9 +1,9 @@
 "use client";
 
-import { useSession } from "@/lib/session/SessionProvider";
-import { agentInternal } from "@/lib/agent/agentInternal";
-import { useRouter } from "next/navigation";
-import { Anchor, Button, Container, Group, Text } from "@mantine/core";
+import {useSession} from "@/lib/session/SessionProvider";
+import {agentInternal} from "@/lib/agent/agentInternal";
+import {useRouter} from "next/navigation";
+import {Anchor, Button, Container, Group, Text} from "@mantine/core";
 import Link from "next/link";
 import {Logo} from "@/components/layout/header/Logo";
 
@@ -25,7 +25,7 @@ export const UserHeader = () => {
     <Container size="lg" h="100%">
       <Group justify="space-between" align="center" h="100%">
         {/* Logo som lenker til brukerens dashboard */}
-        <Logo href="/dashboard" />
+        <Logo href="/dashboard"/>
 
         {/* Hovedmenypunkter for brukeren */}
         <Group gap="lg" visibleFrom="sm">

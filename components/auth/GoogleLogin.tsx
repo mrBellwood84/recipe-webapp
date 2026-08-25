@@ -1,4 +1,4 @@
-import { Button, Paper } from "@mantine/core";
+import {Button, Paper} from "@mantine/core";
 import Image from "next/image";
 
 export const GoogleLogin = () => {

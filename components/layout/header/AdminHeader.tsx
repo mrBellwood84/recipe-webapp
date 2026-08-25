@@ -1,9 +1,9 @@
 "use client";
 
-import { useSession } from "@/lib/session/SessionProvider";
-import { agentInternal } from "@/lib/agent/agentInternal";
-import { useRouter } from "next/navigation";
-import { Anchor, Badge, Button, Container, Group } from "@mantine/core";
+import {useSession} from "@/lib/session/SessionProvider";
+import {agentInternal} from "@/lib/agent/agentInternal";
+import {useRouter} from "next/navigation";
+import {Anchor, Badge, Button, Container, Group} from "@mantine/core";
 import Link from "next/link";
 import {Logo} from "@/components/layout/header/Logo";
 
@@ -26,7 +26,7 @@ export const AdminHeader = () => {
       <Group justify="space-between" align="center" h="100%">
         {/* Logo og Admin-tag */}
         <Group gap="xs" align="center">
-          <Logo href="/admin/dashboard" />
+          <Logo href="/admin/dashboard"/>
           <Badge color="red" variant="light" size="sm">
             Admin
           </Badge>

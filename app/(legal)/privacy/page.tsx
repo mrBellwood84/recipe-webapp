@@ -1,5 +1,12 @@
+import {MarkdownContentContainer} from "@/components/containers/MarkdownContentContainer";
+
 const PrivacyPage = () => {
-  return <div>Privacy Page</div>;
+  return (
+    <MarkdownContentContainer
+      title="Personvernerklæring"
+      filePath="/docs/legal/privacy.md"
+    />
+  );
 }
 
 export default PrivacyPage;

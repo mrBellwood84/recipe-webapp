@@ -1,6 +1,6 @@
 "use client";
 
-import { Anchor, Button, Container, Group } from "@mantine/core";
+import {Anchor, Button, Container, Group} from "@mantine/core";
 import Link from "next/link";
 import {Logo} from "@/components/layout/header/Logo";
 
@@ -9,7 +9,7 @@ export const GuestHeader = () => {
     <Container size="lg" h="100%">
       <Group justify="space-between" align="center" h="100%">
         {/* Delt Logo-komponent */}
-        <Logo />
+        <Logo/>
 
         {/* Info-lenker for uinnloggede */}
         <Group gap="xl" visibleFrom="sm">

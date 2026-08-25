@@ -77,8 +77,7 @@ const sessionManager = {
       const exp = claims.exp;
 
       return (exp) - (Date.now() / 1000);
-    }
-    catch {
+    } catch {
       return -1
     }
   },

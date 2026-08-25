@@ -1,19 +1,8 @@
 "use client"
 
-import {
-  Alert,
-  Anchor,
-  Button,
-  Grid,
-  GridCol,
-  Paper,
-  PasswordInput,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import {Alert, Anchor, Button, Grid, GridCol, Paper, PasswordInput, Text, TextInput, Title,} from "@mantine/core";
 import Link from "next/link";
-import { useState} from "react";
+import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {useSession} from "@/lib/session/SessionProvider";
 import {hasLength, isEmail, useForm} from "@mantine/form";
@@ -38,8 +27,8 @@ export const RegisterForm = () => {
       password: "",
     },
     validate: {
-      firstName: hasLength({min:1}, "Fornavn mangler"),
-      lastName: hasLength({min:1}, "Etternavn mangler"),
+      firstName: hasLength({min: 1}, "Fornavn mangler"),
+      lastName: hasLength({min: 1}, "Etternavn mangler"),
       email: isEmail("Ikke gyldig epost"),
       password: (value) => {
         if (!value || value.length < 8) {
@@ -94,7 +83,7 @@ export const RegisterForm = () => {
 
       <form onSubmit={form.onSubmit(submitHandler)}>
         <Grid gap="md">
-          <GridCol span={{ base: 12, sm: 6 }}>
+          <GridCol span={{base: 12, sm: 6}}>
             <TextInput
               label="Fornavn"
               placeholder="Ola"
@@ -105,7 +94,7 @@ export const RegisterForm = () => {
             />
           </GridCol>
 
-          <GridCol span={{ base: 12, sm: 6 }}>
+          <GridCol span={{base: 12, sm: 6}}>
             <TextInput
               label="Etternavn"
               placeholder="Nordmann"
@@ -144,7 +133,7 @@ export const RegisterForm = () => {
                 {registerFailedMessage}
               </Alert>
             </GridCol>
-            )}
+          )}
 
           <GridCol span={12} mt="xs">
             <Button type="submit" fullWidth>
