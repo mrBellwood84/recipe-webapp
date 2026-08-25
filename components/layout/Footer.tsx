@@ -2,8 +2,12 @@
 
 import {Anchor, Badge, Box, Container, Divider, Group, SimpleGrid, Stack, Text, Title,} from "@mantine/core";
 import Link from "next/link";
+import {useSession} from "@/lib/session/SessionProvider";
 
 export const Footer = () => {
+  const session = useSession();
+  const userActive = Boolean(session.user);
+
   return (
     <Box bg="var(--mantine-color-body)" mt={80} component="footer">
       <Divider/>
@@ -95,9 +99,11 @@ export const Footer = () => {
           <Text size="xs" c="dimmed">
             © {new Date().getFullYear()} Kjøkkenhylla. Alle rettigheter reservert.
           </Text>
+          {!userActive &&
           <Text size="xs" c="dimmed">
             Gjester må logge inn for å benytte applikasjonens funksjoner.
           </Text>
+          }
         </Group>
       </Container>
     </Box>
