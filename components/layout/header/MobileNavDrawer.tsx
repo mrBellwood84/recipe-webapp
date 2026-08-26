@@ -1,8 +1,8 @@
 "use client";
 
-import { Anchor, Button, Drawer, Stack } from "@mantine/core";
+import { Button, Drawer, NavLink, Stack } from "@mantine/core";
 import Link from "next/link";
-import {NavItem} from "@/components/layout/header/navlinks";
+import { NavItem } from "@/components/layout/header/navlinks";
 
 interface MobileNavDrawerProps {
   opened: boolean;
@@ -26,24 +26,26 @@ export const MobileNavDrawer = ({
       title="Meny"
       hiddenFrom="sm"
     >
-      <Stack gap="md" mt="md">
-        {links.map((link) => (
-          <Anchor
-            key={link.href}
-            component={Link}
-            href={link.href}
-            size="md"
-            fw={500}
-            onClick={onClose}
-          >
-            {link.label}
-          </Anchor>
-        ))}
+      <Stack gap="xs" mt="md">
+        {links.map((link) => {
+          const Icon = link.icon;
+          return (
+            <NavLink
+              key={link.href}
+              component={Link}
+              href={link.href}
+              label={link.label}
+              leftSection={Icon ? <Icon size={18} /> : undefined}
+              onClick={onClose}
+            />
+          );
+        })}
 
         {isGuest && (
           <Stack gap="xs" mt="lg">
             <Button
               variant="subtle"
+              color="gray"
               component={Link}
               href="/login"
               onClick={onClose}
@@ -53,6 +55,7 @@ export const MobileNavDrawer = ({
             </Button>
             <Button
               variant="filled"
+              color="green"
               component={Link}
               href="/register"
               onClick={onClose}

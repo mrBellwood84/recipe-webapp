@@ -1,8 +1,8 @@
 "use client";
 
-import { Anchor, Group } from "@mantine/core";
+import { Button, Group } from "@mantine/core";
 import Link from "next/link";
-import {NavItem} from "@/components/layout/header/navlinks";
+import { NavItem } from "@/components/layout/header/navlinks";
 
 interface NavLinksContainerProps {
   links: NavItem[];
@@ -10,20 +10,25 @@ interface NavLinksContainerProps {
 
 export const NavLinksContainer = ({ links }: NavLinksContainerProps) => {
   return (
-    <Group gap="lg" visibleFrom="sm">
-      {links.map((link) => (
-        <Anchor
-          key={link.href}
-          component={Link}
-          href={link.href}
-          size="sm"
-          fw={500}
-          c="dimmed"
-          style={{ transition: "color 0.15s ease" }}
-        >
-          {link.label}
-        </Anchor>
-      ))}
+    <Group gap="xs" visibleFrom="sm">
+      {links.map((link) => {
+        const Icon = link.icon;
+        return (
+          <Button
+            key={link.href}
+            component={Link}
+            href={link.href}
+            variant="subtle"
+            color="gray"
+            size="sm"
+            radius="md"
+            fw={500}
+            leftSection={Icon ? <Icon size={18} /> : undefined}
+          >
+            {link.label}
+          </Button>
+        );
+      })}
     </Group>
   );
 };
