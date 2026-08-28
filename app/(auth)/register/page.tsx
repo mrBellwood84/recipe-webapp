@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import {Container, Divider, Stack} from "@mantine/core";
-import {RegisterForm} from "@/components/forms/auth/RegisterForm";
-import {GoogleRegister} from "@/components/forms/auth/GoogleRegister";
-import {useRouter} from "next/navigation";
-import {useSession} from "@/lib/session/SessionProvider";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Divider, Stack } from "@mantine/core";
+import { RegisterForm } from "@/components/forms/auth/RegisterForm";
+import { GoogleRegister } from "@/components/forms/auth/GoogleRegister";
+import { useSession } from "@/lib/session/SessionProvider";
+import { AsyncMainContainer } from "@/components/containers/MainContainer";
 
 const RegisterPage = () => {
   const router = useRouter();
   const session = useSession();
 
   useEffect(() => {
-    // Vent til sesjonsdataene er lastet inn
     if (!session || !session.role) return;
 
     if (session.role === "Admin") {
@@ -22,17 +22,18 @@ const RegisterPage = () => {
     }
   }, [session?.role, router]);
 
-  if (Boolean(session.role)) return <div>Loading</div>;
+  const isRedirecting = Boolean(session?.role);
+
   return (
-    <Container size={480} my={40}>
+    <AsyncMainContainer size={480} py={40} loading={isRedirecting}>
       <Stack gap="md">
-        <RegisterForm/>
+        <RegisterForm />
 
-        <Divider label="eller" labelPosition="center" my="xs"/>
+        <Divider label="eller" labelPosition="center" my="xs" />
 
-        <GoogleRegister/>
+        <GoogleRegister />
       </Stack>
-    </Container>
+    </AsyncMainContainer>
   );
 };
 

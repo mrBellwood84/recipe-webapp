@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Badge,
   Button,
   Card,
-  Container,
   Group,
   SimpleGrid,
   Stack,
@@ -19,17 +21,14 @@ import {
   IconLock,
   IconSparkles,
 } from "@tabler/icons-react";
-import Link from "next/link";
-import {useRouter} from "next/navigation";
-import {useSession} from "@/lib/session/SessionProvider";
-import {useEffect} from "react";
+import { useSession } from "@/lib/session/SessionProvider";
+import { AsyncMainContainer } from "@/components/containers/MainContainer";
 
-const Home = () => {
+export default function Home() {
   const router = useRouter();
   const session = useSession();
 
   useEffect(() => {
-    // Vent til sesjonsdataene er lastet inn
     if (!session || !session.role) return;
 
     if (session.role === "Admin") {
@@ -39,10 +38,10 @@ const Home = () => {
     }
   }, [session?.role, router]);
 
-  if (Boolean(session.role)) return <div>Loading</div>;
+  const isRedirecting = Boolean(session?.role);
 
   return (
-    <Container size="lg" py="xl">
+    <AsyncMainContainer size="lg" py="xl" loading={isRedirecting}>
       <Stack gap="xl" py="md">
         {/* Hero Section */}
         <Stack align="center" my="lg" gap="md">
@@ -62,7 +61,7 @@ const Home = () => {
             </Text>
           </Title>
 
-          <Text c="dimmed" size="lg" ta="center" >
+          <Text c="dimmed" size="lg" ta="center">
             Kjøkkenhylla samler dine favorittoppskrifter på ett sted. Importer fra
             godkjente nettsteder, planlegg ukens måltider og generer ferdige
             handlelister – 100 % privat og reklamefritt.
@@ -159,8 +158,6 @@ const Home = () => {
           </Group>
         </Card>
       </Stack>
-    </Container>
+    </AsyncMainContainer>
   );
 }
-
-export default Home;

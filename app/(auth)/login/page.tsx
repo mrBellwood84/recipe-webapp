@@ -1,20 +1,21 @@
 "use client";
 
-import {Alert, Button, Container, Divider, Paper, Stack} from "@mantine/core";
-import {useRouter, useSearchParams} from "next/navigation";
-import {LoginForm} from "@/components/forms/auth/LoginForm";
-import {GoogleLogin} from "@/components/forms/auth/GoogleLogin";
-import {agentInternal} from "@/lib/agent/agentInternal";
-import {LoginRequest} from "@/lib/models/auth/loginRequest";
-import {User} from "@/lib/models/user/user";
-import {HttpResponse} from "@/lib/models/httpResponse";
-import {useSession} from "@/lib/session/SessionProvider";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Alert, Button, Divider, Paper, Stack } from "@mantine/core";
+import { LoginForm } from "@/components/forms/auth/LoginForm";
+import { GoogleLogin } from "@/components/forms/auth/GoogleLogin";
+import { agentInternal } from "@/lib/agent/agentInternal";
+import { LoginRequest } from "@/lib/models/auth/loginRequest";
+import { User } from "@/lib/models/user/user";
+import { HttpResponse } from "@/lib/models/httpResponse";
+import { useSession } from "@/lib/session/SessionProvider";
+import { AsyncMainContainer } from "@/components/containers/MainContainer";
 
 const credentials: LoginRequest[] = [
-  {email: "admin@recipeapp.com", password: "AdminSuperSecretPassword123!"},
-  {email: "user1@example.com", password: "DevUser123!"},
-  {email: "user2@example.com", password: "DevUser123!"},
+  { email: "admin@recipeapp.com", password: "AdminSuperSecretPassword123!" },
+  { email: "user1@example.com", password: "DevUser123!" },
+  { email: "user2@example.com", password: "DevUser123!" },
 ];
 
 const LoginPage = () => {
@@ -40,7 +41,6 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    // Vent til sesjonsdataene er lastet inn
     if (!session || !session.role) return;
 
     if (session.role === "Admin") {
@@ -48,12 +48,12 @@ const LoginPage = () => {
     } else if (session.role === "User") {
       router.push("/dashboard");
     }
-  }, [session, session?.role, router]);
+  }, [session?.role, router]);
 
-  if (Boolean(session.role)) return <div>Loading</div>;
+  const isRedirecting = Boolean(session?.role);
 
   return (
-    <Container size={420} my={40}>
+    <AsyncMainContainer size={420} py={40} loading={isRedirecting}>
       <Stack gap="md">
         {hasExpired && (
           <Alert color="orange" title="Økten har utløpt" variant="light" radius="md">
@@ -61,16 +61,16 @@ const LoginPage = () => {
           </Alert>
         )}
 
-        <LoginForm/>
+        <LoginForm />
 
-        <Divider label="eller" labelPosition="center" my="xs"/>
+        <Divider label="eller" labelPosition="center" my="xs" />
 
-        <GoogleLogin/>
+        <GoogleLogin />
 
         {/* DEV :: Testverktøy (Kjører kun lokalt/i development) */}
         {process.env.NODE_ENV === "development" && (
           <Paper radius="md" p="md" withBorder bg="var(--mantine-color-gray-0)">
-            <Divider label="DEV :: Testinnlogging" labelPosition="center" mb="sm"/>
+            <Divider label="DEV :: Testinnlogging" labelPosition="center" mb="sm" />
             <Stack gap="xs">
               <Button
                 variant="light"
@@ -100,7 +100,7 @@ const LoginPage = () => {
           </Paper>
         )}
       </Stack>
-    </Container>
+    </AsyncMainContainer>
   );
 };
 

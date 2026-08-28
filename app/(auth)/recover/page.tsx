@@ -1,18 +1,16 @@
-"use client"
+"use client";
 
-import {Container} from "@mantine/core";
-import {ForgotPasswordForm} from "@/components/forms/auth/ForgotPasswordForm";
-import {useRouter} from "next/navigation";
-import {useSession} from "@/lib/session/SessionProvider";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { ForgotPasswordForm } from "@/components/forms/auth/ForgotPasswordForm";
+import { useSession } from "@/lib/session/SessionProvider";
+import { AsyncMainContainer } from "@/components/containers/MainContainer";
 
 const ForgotPasswordPage = () => {
-
   const router = useRouter();
   const session = useSession();
 
   useEffect(() => {
-    // Vent til sesjonsdataene er lastet inn
     if (!session || !session.role) return;
 
     if (session.role === "Admin") {
@@ -20,13 +18,14 @@ const ForgotPasswordPage = () => {
     } else if (session.role === "User") {
       router.push("/dashboard");
     }
-  }, [session, session?.role, router]);
+  }, [session?.role, router]);
 
-  if (Boolean(session.role)) return <div>Loading</div>;
+  const isRedirecting = Boolean(session?.role);
+
   return (
-    <Container size={420} my={40}>
-      <ForgotPasswordForm/>
-    </Container>
+    <AsyncMainContainer size={420} py={40} loading={isRedirecting}>
+      <ForgotPasswordForm />
+    </AsyncMainContainer>
   );
 };
 
