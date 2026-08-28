@@ -1,0 +1,3 @@
+interface RecoverRequest {
+  email: string
+}
