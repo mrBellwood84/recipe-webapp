@@ -8,13 +8,12 @@ import { useForm, isEmail, isNotEmpty } from "@mantine/form";
 import { agentInternal } from "@/lib/agent/agentInternal";
 import { useSession } from "@/lib/session/SessionProvider";
 import { HttpResponse } from "@/lib/models/httpResponse";
-import { User } from "@/lib/models/user/user";
+import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
 import { AppFormProvider } from "@/components/forms/common/FormContext";
 import { CreateFormContainer } from "@/components/forms/common/CreateFormContainer";
 import { FormField } from "@/components/forms/common/FormField";
 import { RegisterRequest } from "@/lib/models/auth/registerRequest";
 
-// Utvider RegisterRequest for å håndtere bekreftelsesfeltet kun i klientgrensesnittet
 interface RegisterFormValues extends RegisterRequest {
   confirmPassword: string;
 }
@@ -38,7 +37,7 @@ export const RegisterForm = () => {
     validate: {
       firstName: isNotEmpty("Fornavn mangler"),
       lastName: isNotEmpty("Etternavn mangler"),
-      email: isEmail("Ikke gyldig epost"),
+      email: isEmail("Ikke gyldig e-post"),
       password: (value) => {
         if (!value || value.length < 8) return "Passordet må være minst 8 tegn";
         if (!/[A-Z]/.test(value)) return "Passordet må inneholde minst én stor bokstav";
@@ -56,17 +55,16 @@ export const RegisterForm = () => {
     setRequestActive(true);
     setRegisterFailedMessage(undefined);
 
-    // Fjerner confirmPassword slik at kun RegisterRequest sendes til API-et
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...payload } = values;
 
     try {
       const res = await agentInternal.post("/api/auth/register", payload);
-      const data = (await res.json()) as HttpResponse<User | undefined>;
+      const data = (await res.json()) as HttpResponse<UserProfileResponse>;
 
-      if (res.status === 200) {
+      if (res.ok && data.body) {
+        // Oppdaterer brukeren i klient-state (SessionProvider setter også rollen automatisk)
         session.setUser(data.body);
-        session.setRole(data.body!.role);
         router.push("/dashboard");
       } else {
         setRegisterFailedMessage(data.message || "Kunne ikke registrere bruker.");

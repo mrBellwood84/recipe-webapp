@@ -1,46 +1,45 @@
-import {RegisterRequest} from "@/lib/models/auth/registerRequest";
-import {agentExternal} from "@/lib/agent/agentExternal";
-import {HttpResponse} from "@/lib/models/httpResponse";
-import {NextResponse} from "next/server";
-import {LoginResponse} from "@/lib/models/auth/loginResponse";
+import { NextResponse } from "next/server";
+import { agentAuth } from "@/lib/agent/agentAuth";
 import sessionManager from "@/lib/session/sessionManager";
-import {User} from "@/lib/models/user/user";
+import { HttpResponse } from "@/lib/models/httpResponse";
+import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
+import { RegisterRequest } from "@/lib/models/auth/registerRequest";
 
 export const POST = async (request: Request) => {
   try {
-    const body: RegisterRequest = await request.json()
-    const registerUrl = `${process.env.AUTH_API}/api/register`
-    const response = await agentExternal.post(registerUrl, body);
+    const body: RegisterRequest = await request.json();
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => undefined);
-      const errorResponse: HttpResponse<undefined> = {
-        statusCode: response.status,
-        message: errorData?.details || errorData?.message || "Internal Server Error",
-        errors: errorData?.errors || undefined,
-        timestamp: new Date().toISOString()
-      }
-      return NextResponse.json(errorResponse, {status: response.status})
-    }
+    // 1. Opprett bruker i backend (mottar UserProfileResponse)
+    const userProfile = await agentAuth.register(body);
 
-    const data: LoginResponse = await response.json()
-    await sessionManager.setSession(data);
-    const user = await sessionManager.getUserData() as User;
+    // 2. Logg inn brukeren automatisk for å få access- og refresh-tokens
+    const tokens = await agentAuth.login({
+      email: body.email,
+      password: body.password,
+    });
 
-    const successResponse: HttpResponse<User> = {
+    // 3. Lagre tokens (HttpOnly cookies) og brukerprofil i sesjonen
+    await sessionManager.setSession(tokens, userProfile);
+
+    // 4. Returner suksessrespons
+    const successResponse: HttpResponse<UserProfileResponse> = {
       statusCode: 200,
-      message: "Registering vellykket",
-      body: user,
-      timestamp: new Date().toISOString()
-    }
+      message: "Registrering vellykket!",
+      body: userProfile,
+      timestamp: new Date().toISOString(),
+    };
 
-    return NextResponse.json(successResponse, {status: response.status})
-  } catch {
+    return NextResponse.json(successResponse, { status: 200 });
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Kunne ikke opprette bruker.";
+
     const errorResponse: HttpResponse<undefined> = {
-      statusCode: 500,
-      message: "Kunne ikke koble mot server...",
-      timestamp: new Date().toISOString()
-    }
-    return NextResponse.json(errorResponse, {status: 500});
+      statusCode: 400,
+      message: errorMessage,
+      timestamp: new Date().toISOString(),
+    };
+
+    return NextResponse.json(errorResponse, { status: 400 });
   }
-}
+};

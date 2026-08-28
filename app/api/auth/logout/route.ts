@@ -1,7 +1,25 @@
+import { NextResponse } from "next/server";
 import sessionManager from "@/lib/session/sessionManager";
-import {NextResponse} from "next/server";
+import { HttpResponse } from "@/lib/models/httpResponse";
 
-export const GET = async () => {
-  await sessionManager.removeSession()
-  return NextResponse.json({status: 200})
-}
+export const POST = async () => {
+  try {
+    await sessionManager.removeSession();
+
+    const response: HttpResponse<undefined> = {
+      statusCode: 200,
+      message: "Utlogging vellykket!",
+      timestamp: new Date().toISOString(),
+    };
+
+    return NextResponse.json(response, { status: 200 });
+  } catch {
+    const errorResponse: HttpResponse<undefined> = {
+      statusCode: 500,
+      message: "Det oppstod en feil under utlogging.",
+      timestamp: new Date().toISOString(),
+    };
+
+    return NextResponse.json(errorResponse, { status: 500 });
+  }
+};

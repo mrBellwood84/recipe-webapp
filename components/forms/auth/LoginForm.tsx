@@ -4,12 +4,12 @@ import { useState } from "react";
 import { Anchor, Group } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {useForm, isEmail,  isNotEmpty} from "@mantine/form";
+import { useForm, isEmail, isNotEmpty } from "@mantine/form";
 import { agentInternal } from "@/lib/agent/agentInternal";
 import { useSession } from "@/lib/session/SessionProvider";
 import { LoginRequest } from "@/lib/models/auth/loginRequest";
 import { HttpResponse } from "@/lib/models/httpResponse";
-import { LoginResponse } from "@/lib/models/auth/loginResponse";
+import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
 import { AppFormProvider } from "@/components/forms/common/FormContext";
 import { CreateFormContainer } from "@/components/forms/common/CreateFormContainer";
 import { FormField } from "@/components/forms/common/FormField";
@@ -21,7 +21,6 @@ export const LoginForm = () => {
   const router = useRouter();
   const session = useSession();
 
-  // Bruk useForm<LoginRequest> for full type-sikkerhet
   const form = useForm<LoginRequest>({
     mode: "controlled",
     initialValues: {
@@ -29,7 +28,7 @@ export const LoginForm = () => {
       password: "",
     },
     validate: {
-      email: isEmail("Ikke gyldig epost"),
+      email: isEmail("Ikke gyldig e-post"),
       password: isNotEmpty("Passord mangler"),
     },
   });
@@ -40,20 +39,21 @@ export const LoginForm = () => {
 
     try {
       const res = await agentInternal.post("/api/auth/login", value);
-      const data = (await res.json()) as HttpResponse<LoginResponse>;
+      const data = (await res.json()) as HttpResponse<UserProfileResponse>;
 
-      if (res.status === 200 && data.body) {
+      if (res.ok && data.body) {
+        // Oppdaterer både bruker og rolle i SessionProvider
         session.setUser(data.body);
-        session.setRole(data.body.role);
 
-        if (data.body.role === "Admin") {
+        // Rutestyring basert på rolle ("admin" vs "user")
+        if (data.body.role?.toLowerCase() === "admin") {
           router.push("/admin/dashboard");
         } else {
           router.push("/dashboard");
         }
       } else {
         if (res.status === 400) {
-          setLoginFailedMessage("Feil epost eller passord!");
+          setLoginFailedMessage(data.message || "Feil e-post eller passord!");
         } else {
           setLoginFailedMessage("Pålogging ikke mulig grunnet feil på server. Prøv igjen senere...");
         }

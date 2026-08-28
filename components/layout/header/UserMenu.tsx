@@ -22,14 +22,16 @@ export const UserMenu = () => {
   const session = useSession();
   const router = useRouter();
 
-  const handleLogout = () => {
-    agentInternal.get("/api/auth/logout").then((res) => {
-      if (res.status === 200) {
-        session.setUser(undefined);
-        session.setRole(undefined);
+  const handleLogout = async () => {
+    try {
+      const res = await agentInternal.post("/api/auth/logout", {});
+      if (res.ok) {
+        session.setUser(undefined); // Tømmer automatisk både user og role i provideren
         router.push("/");
       }
-    });
+    } catch (error) {
+      console.error("Utlogging mislyktes:", error);
+    }
   };
 
   const getInitials = () => {
@@ -39,11 +41,18 @@ export const UserMenu = () => {
     return `${first}${last}`.toUpperCase() || "U";
   };
 
+  const isAdmin = session.role?.toLowerCase() === "admin";
+
   return (
     <Menu position="bottom-end" shadow="md" width={220} radius="md">
       <Menu.Target>
         <UnstyledButton style={{ borderRadius: "50%" }}>
-          <Avatar color="blue" radius="xl" size="md">
+          <Avatar
+            src={session.user?.avatarUrl}
+            color="blue"
+            radius="xl"
+            size="md"
+          >
             {getInitials()}
           </Avatar>
         </UnstyledButton>
@@ -55,7 +64,7 @@ export const UserMenu = () => {
             <Text size="xs" fw={600} truncate>
               {session.user?.firstName} {session.user?.lastName}
             </Text>
-            {session.role === "Admin" && (
+            {isAdmin && (
               <Badge color="red" variant="light" size="xs">
                 Admin
               </Badge>

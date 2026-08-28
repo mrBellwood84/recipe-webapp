@@ -1,47 +1,57 @@
-import {NextResponse} from "next/server";
-import {agentExternal} from "@/lib/agent/agentExternal";
-import {HttpResponse} from "@/lib/models/httpResponse";
+import { NextResponse } from "next/server";
+import { agentAuth } from "@/lib/agent/agentAuth";
 import sessionManager from "@/lib/session/sessionManager";
-import {User} from "@/lib/models/user/user";
-import {LoginResponse} from "@/lib/models/auth/loginResponse";
+import { HttpResponse } from "@/lib/models/httpResponse";
+import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
 
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const loginUrl = `${process.env.AUTH_API}/api/login`;
-    const response = await agentExternal.post(loginUrl, body);
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => undefined);
+    // 1. Utfør OAuth2 Token Exchange via OpenIddict (/connect/token)
+    const tokens = await agentAuth.login(body);
+
+    // 2. Hent innlogget brukersin profil fra /account/me med det ferske tokenet
+    const meUrl = `${process.env.NEXT_PUBLIC_AUTH_API || "http://localhost:5000/api/auth"}/account/me`;
+    const profileRes = await fetch(meUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${tokens.access_token}`,
+      },
+    });
+
+    if (!profileRes.ok) {
       const errorResponse: HttpResponse<undefined> = {
-        statusCode: response.status,
-        message: errorData?.details || errorData?.message || "Internal Server Error",
-        errors: errorData?.errors || undefined,
-        timestamp: new Date().toISOString()
-      }
-      return NextResponse.json(errorResponse, {status: response.status})
+        statusCode: profileRes.status,
+        message: "Kunne ikke hente brukerprofil etter innlogging.",
+        timestamp: new Date().toISOString(),
+      };
+      return NextResponse.json(errorResponse, { status: profileRes.status });
     }
 
-    const data: LoginResponse = await response.json()
+    const userProfile: UserProfileResponse = await profileRes.json();
 
-    await sessionManager.setSession(data);
-    const user = await sessionManager.getUserData() as User;
+    // 3. Lagre tokens i HttpOnly-cookies og profil i tilgjengelig cookie
+    await sessionManager.setSession(tokens, userProfile);
 
-    const successResponse: HttpResponse<User> = {
+    // 4. Returner suksessrespons med UserProfileResponse i body
+    const successResponse: HttpResponse<UserProfileResponse> = {
       statusCode: 200,
       message: "Innlogging vellykket!",
-      body: user,
-      timestamp: new Date().toISOString()
-    }
+      body: userProfile,
+      timestamp: new Date().toISOString(),
+    };
 
-    return NextResponse.json(successResponse, {status: response.status});
-  } catch {
+    return NextResponse.json(successResponse, { status: 200 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Ugyldig e-post eller passord.";
+
     const errorResponse: HttpResponse<undefined> = {
-      statusCode: 500,
-      message: "Kunne ikke koble mot server...",
-      timestamp: new Date().toISOString()
-    }
+      statusCode: 400,
+      message: errorMessage,
+      timestamp: new Date().toISOString(),
+    };
 
-    return NextResponse.json(errorResponse, {status: 500});
+    return NextResponse.json(errorResponse, { status: 400 });
   }
-}
+};
