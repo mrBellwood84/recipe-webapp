@@ -1,49 +1,49 @@
 # Om Kjøkkenhylla
 
-Kjøkkenhylla ble skapt ut fra et ønske om enklere måltidsplanlegging, mindre matsvinn og én samlet kokebok – helt fri for reklamestøy og sosiale medier.
+Kjøkkenhylla ble skapt ut fra et ønske om enklere måltidsplanlegging, mindre matsvinn og én samlet, digital kokebok – helt fri for reklamestøy, algoritmer og sosiale medier.
 
 ---
 
 ## Visjon og idé
 
-De fleste av oss har favorittoppskrifter spredt utover nettleserbokmerker, papirlapper og ulike matblogger. Kjøkkenhylla samler alt dette på én oversiktlig plass.
+De fleste av oss har favorittoppskrifter spredt utover nettleserbokmerker, papirlapper og ulike matblogger. Kjøkkenhylla samler alt dette på én oversiktlig plass – tilpasset din måte å lage mat på.
 
-* **Samle alt på ett sted:** Skriv inn dine egne oppskrifter eller importer enkelt fra et utvalg godkjente nettsteder.
-* **Redusere matsvinn:** Søk etter oppskrifter basert på ingrediensene og restene du allerede har i kjøleskapet.
-* **Forenkle hverdagen:** Planlegg ukens måltider og generer ferdige handlelister med noen få klikk.
-* **Oversikt over kostholdet:** Se beregnet næringsinnhold per ingrediens, per måltid og akkummulert på ukesbasis.
-
----
-
-## Din private kokebok
-
-Kjøkkenhylla er designet for å være ditt personlige verktøy – ikke et sosialt nettverk.
-
-* **Fullstendig privat:** Ingen vurderinger, kommentarer eller støy fra andre brukere. Stjerner og favorittmarkeringer er kun til for din egen del.
-* **Full redigeringsfrihet:** Tilpass oppskrifter slik du selv vil. Du kan fritt endre fremgangsmåte, legge til eller fjerne ingredienser og justere mengder – uansett om oppskriften er skrevet selv eller importert. Endringene dine påvirker aldri kilden på nettet.
-* **Fullt eierskap:** Oppskriftene dine er dine. Du har full kontroll til å legge til, endre og slette innholdet ditt som du ønsker.
+* **Din egne samling:** Kjøkkenhylla leveres uten et fast oppskriftsregister. Du bygger din egen kokebok ved å importere enkelt fra dine favorittsider på nett, opprette egne retter eller ta imot delte oppskrifter fra venner og familie.
+* **Tøm kjøleskapet:** Søk etter oppskrifter i din samling basert på ingrediensene og restene du allerede har liggende, slik at du sparer penger og reduserer matsvinn.
+* **Forenkle hverdagen:** Sett sammen en visuell ukesmeny fra mandag til søndag, og la appen generere en ferdig, sammenslått handleliste for deg.
+* **Oversikt over kostholdet:** Få beregnet næringsinnhold per ingrediens, per måltid og akkummulert for hele uken.
 
 ---
 
-## Et personlig prosjekt
+## Et støyfritt og privat verktøy
 
-Kjøkkenhylla er et personlig hjertebarn utviklet av én enkelt utvikler ut fra et eget brennende ønske om en bedre mat- og planleggingshverdag. Prosjektet bygger på en ambisjon om å skape et ryddig, funksjonelt og støyfritt verktøy for alle som er glade i å lage mat.
+Kjøkkenhylla er designet for å være et effektivt og personlig verktøy for kjøkkenet ditt – ikke et sosialt nettverk.
+
+* **Fullstendig privat:** Ingen kommentarfelter, offentlige vurderinger eller støy fra andre brukere. Stjernemerking og historikk er kun til for din egen del.
+* **Full redigeringsfrihet:** Tilpass oppskriftene akkurat slik du vil. Endre fremgangsmåte, juster ingredienser og legg til notater – uansett om oppskriften er skrevet av deg selv eller importert fra nettet. Endringene du gjør påvirker aldri kilden.
+* **Fullt eierskap:** Oppskriftene dine tilhører deg. Du har alltid full kontroll over å legge til, redigere eller slette innholdet ditt.
+
+---
+
+## Et personlig hjertebarn
+
+Kjøkkenhylla er et personlig prosjekt utviklet av én enkelt utvikler ut fra et brennende ønske om en bedre mat- og planleggingshverdag. Prosjektet drives av en ambisjon om å tilby et ryddig, funksjonelt og støyfritt verktøy for alle som er glade i god mat.
 
 ---
 
 ## Næringsinnhold og helseforbehold
 
-Kjøkkenhylla viser beregnede verdier for energi, proteiner, fett, karbohydrater, fiber, sukker og vitaminer.
+Kjøkkenhylla viser beregnede verdier for energi, proteiner, fett, karbohydrater, fiber, sukker og valgte vitaminer.
 
 > **Viktig å merke seg:**
-> * **Kun veiledende:** Alle næringsberegninger og referanseverdier er kun veiledende og utgjør **ikke** medisinsk rådgivning eller ernæringsfysiologisk veiledning.
-> * **Offentlige kilder:** Beregningene benytter referansedata fra kilder som Helsedirektoratet og Mattilsynet (Matvaretabellen).
-> * **Allergier og matintoleranser:** Ved allergier eller spesielle helsebehov må du alltid sjekke ingredienslisten og næringsinnholdet på den fysiske matvareemballasjen.
+> * **Kun veiledende:** Alle næringsberegninger og referanseverdier er automatisk beregnet og kun veiledende. De utgjør **ikke** medisinsk rådgivning eller ernæringsfysiologisk veiledning.
+> * **Offentlige kilder:** Beregningene benytter referansedata fra offentlige næringstabeller som Helsedirektoratet og Mattilsynet (Matvaretabellen).
+> * **Allergier og matintoleranser:** Ved allergier eller spesielle helsebehov må du alltid kontrollere ingredienslisten på den fysiske matvareemballasjen.
 > * **Helsefaglig rådgivning:** Rådfør deg alltid med lege eller autorisert helsepersonell dersom du har behov for individuelt tilpasset kostholdsoppfølging.
 
 ---
 
-## Juridisk og informasjon
+## Juridisk informasjon
 
 Ytterligere informasjon om rettigheter, håndtering av personopplysninger, informasjonskapsler og tilgjengelighet finner du under våre juridiske dokumenter nederst i applikasjonen:
 

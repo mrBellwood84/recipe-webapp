@@ -1,109 +1,155 @@
 "use client";
 
-import {Anchor, Badge, Box, Container, Divider, Group, SimpleGrid, Stack, Text, Title,} from "@mantine/core";
+import {
+  Anchor,
+  Badge,
+  Box,
+  Container,
+  Divider,
+  Group,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
+  ThemeIcon,
+} from "@mantine/core";
 import Link from "next/link";
-import {useSession} from "@/lib/session/SessionProvider";
+import {
+  IconChefHat,
+  IconLock,
+  IconSparkles,
+  IconHeart,
+  IconShield,
+  IconCircleCheck,
+} from "@tabler/icons-react";
+import { useSession } from "@/lib/session/SessionProvider";
 
 export const Footer = () => {
   const session = useSession();
-  const userActive = Boolean(session.user);
+  const userActive = Boolean(session?.user);
 
   return (
-    <Box bg="var(--mantine-color-body)" mt={80} component="footer">
-      <Divider/>
-      <Container size="lg" py="xl">
-        <SimpleGrid cols={{base: 1, sm: 2, md: 4}} spacing="xl" mb="xl">
+    <Box component="footer" mt={100} bg="var(--mantine-color-body)">
+      <Divider color="var(--mantine-color-gray-3)" />
+
+      <Container size="lg" py={50}>
+        <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }} spacing={30} mb={40}>
           {/* Kolonne 1: Brand & Visjon */}
-          <Stack gap="xs">
+          <Stack gap="sm">
             <Group gap="xs">
-              <Title order={3} c="brand">
-                Kjøkkenhylla
-              </Title>
-              <Badge variant="dot" color="blue" size="sm">
-                Smidig matmestring
+              <ThemeIcon size={34} radius="md" color="teal" variant="light">
+                <IconChefHat size={20} />
+              </ThemeIcon>
+              <div>
+                <Title order={3} size="h4" lh={1}>
+                  Kjøkkenhylla
+                </Title>
+              </div>
+            </Group>
+
+            <Text size="xs" c="dimmed" lh={1.6}>
+              Din personlige, digitale kokebok. Samle egne oppskrifter, importer fra favorittblogger, planlegg ukesmenyen og generer handlelister – helt støyfritt og privat.
+            </Text>
+
+            <Group gap={6} mt={4}>
+              <Badge variant="dot" color="teal" size="xs">
+                100% Privat
+              </Badge>
+              <Badge variant="dot" color="blue" size="xs">
+                Ingen reklame
               </Badge>
             </Group>
-            <Text size="sm" c="dimmed">
-              Samle dine egne oppskrifter eller skrap dem fra nettet. Tilpass ingredienser,
-              få full oversikt over næringsinnhold og allergener, og planlegg måltider –
-              alt på din personlige profil.
-            </Text>
           </Stack>
 
-          {/* Kolonne 2: Medlemsfunksjoner (Låst for gjester) */}
+          {/* Kolonne 2: Medlemsfunksjoner */}
           <Stack gap="xs">
-            <Group gap={6}>
+            <Group gap={6} mb={4}>
               <Text fw={600} size="sm">
-                Min profil
+                Min Kjøkkenhylle
               </Text>
-              <Badge size="xs" color="gray" variant="outline">
-                Krever konto
-              </Badge>
+              {!userActive && (
+                <Badge size="xs" color="gray" variant="outline" leftSection={<IconLock size={10} />}>
+                  Krever konto
+                </Badge>
+              )}
             </Group>
-            <Anchor component={Link} href="/user/recipes" size="sm" c="dimmed">
+
+            <Anchor component={Link} href="/user/recipes" size="sm" c="dimmed" underline="hover">
               Mine oppskrifter
             </Anchor>
-            <Anchor component={Link} href="/user/scraper" size="sm" c="dimmed">
-              Skrap ny oppskrift
+            <Anchor component={Link} href="/user/import" size="sm" c="dimmed" underline="hover">
+              Importer oppskrift
             </Anchor>
-            <Anchor component={Link} href="/user/mealplan" size="sm" c="dimmed">
+            <Anchor component={Link} href="/user/mealplan" size="sm" c="dimmed" underline="hover">
               Måltidsplanlegger
             </Anchor>
-            <Anchor component={Link} href="/user/shoppinglist" size="sm" c="dimmed">
+            <Anchor component={Link} href="/user/shoppinglist" size="sm" c="dimmed" underline="hover">
               Handleliste
             </Anchor>
           </Stack>
 
-          {/* Kolonne 3: Om & Kontakt */}
+          {/* Kolonne 3: Informasjon & Hjelp */}
           <Stack gap="xs">
-            <Text fw={600} size="sm">
-              Om oss
+            <Text fw={600} size="sm" mb={4}>
+              Informasjon
             </Text>
-            <Anchor component={Link} href="/about" size="sm" c="dimmed">
+
+            <Anchor component={Link} href="/about" size="sm" c="dimmed" underline="hover">
               Om Kjøkkenhylla
             </Anchor>
-            <Anchor component={Link} href="/contact" size="sm" c="dimmed">
-              Kontakt oss
-            </Anchor>
-            <Anchor component={Link} href="/faq" size="sm" c="dimmed">
+            <Anchor component={Link} href="/faq" size="sm" c="dimmed" underline="hover">
               Hjelp & FAQ
             </Anchor>
-            <Anchor component={Link} href="/status" size="sm" c="dimmed">
+            <Anchor component={Link} href="/status" size="sm" c="dimmed" underline="hover">
               Systemstatus
+            </Anchor>
+            <Anchor component={Link} href="/contact" size="sm" c="dimmed" underline="hover">
+              Kontakt oss
             </Anchor>
           </Stack>
 
           {/* Kolonne 4: Juridisk & Personvern */}
           <Stack gap="xs">
-            <Text fw={600} size="sm">
+            <Text fw={600} size="sm" mb={4}>
               Juridisk
             </Text>
-            <Anchor component={Link} href="/privacy" size="sm" c="dimmed">
-              Personvernerklæring
-            </Anchor>
-            <Anchor component={Link} href="/terms" size="sm" c="dimmed">
+
+            <Anchor component={Link} href="/legal/terms" size="sm" c="dimmed" underline="hover">
               Brukervilkår
             </Anchor>
-            <Anchor component={Link} href="/cookies" size="sm" c="dimmed">
+            <Anchor component={Link} href="/legal/privacy" size="sm" c="dimmed" underline="hover">
+              Personvernerklæring
+            </Anchor>
+            <Anchor component={Link} href="/legal/cookies" size="sm" c="dimmed" underline="hover">
               Informasjonskapsler
             </Anchor>
-            <Anchor component={Link} href="/accessibility" size="sm" c="dimmed">
+            <Anchor component={Link} href="/legal/accessibility" size="sm" c="dimmed" underline="hover">
               Tilgjengelighet
             </Anchor>
           </Stack>
         </SimpleGrid>
 
-        <Divider my="sm"/>
+        <Divider my="md" variant="dashed" />
 
+        {/* Binnlinje: Copyright & Status */}
         <Group justify="space-between" align="center" pt="xs">
-          <Text size="xs" c="dimmed">
-            © {new Date().getFullYear()} Kjøkkenhylla. Alle rettigheter reservert.
-          </Text>
-          {!userActive &&
-          <Text size="xs" c="dimmed">
-            Gjester må logge inn for å benytte applikasjonens funksjoner.
-          </Text>
-          }
+          <Group gap="xs">
+            <Text size="xs" c="dimmed">
+              © {new Date().getFullYear()} Kjøkkenhylla. Utviklet som et støyfritt og personlig verktøy.
+            </Text>
+          </Group>
+
+          <Group gap="md">
+            {userActive ? (
+              <Badge variant="light" color="teal" size="xs" leftSection={<IconCircleCheck size={12} />}>
+                Innlogget som {session.user?.firstName || "bruker"}
+              </Badge>
+            ) : (
+              <Text size="xs" c="dimmed">
+                Gjester viderekobles til innlogging for medlemsfunksjoner.
+              </Text>
+            )}
+          </Group>
         </Group>
       </Container>
     </Box>

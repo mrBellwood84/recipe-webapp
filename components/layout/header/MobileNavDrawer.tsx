@@ -24,7 +24,7 @@ export const MobileNavDrawer = ({
       size="xs"
       padding="md"
       title="Meny"
-      hiddenFrom="sm"
+      hiddenFrom="md"
     >
       <Stack gap="xs" mt="md">
         {links.map((link) => {

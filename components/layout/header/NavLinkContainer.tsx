@@ -10,7 +10,7 @@ interface NavLinksContainerProps {
 
 export const NavLinksContainer = ({ links }: NavLinksContainerProps) => {
   return (
-    <Group gap="xs" visibleFrom="sm">
+    <Group gap="xs" visibleFrom="md" wrap="nowrap">
       {links.map((link) => {
         const Icon = link.icon;
         return (
