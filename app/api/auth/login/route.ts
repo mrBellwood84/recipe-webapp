@@ -12,13 +12,14 @@ export const POST = async (request: Request) => {
     const tokens = await agentAuth.login(body);
 
     // 2. Hent innlogget brukersin profil fra /account/me med det ferske tokenet
-    const meUrl = `${process.env.NEXT_PUBLIC_AUTH_API || "http://localhost:5000/api/auth"}/account/me`;
+    const meUrl = `${process.env.AUTH_API}/account/me`;
     const profileRes = await fetch(meUrl, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${tokens.access_token}`,
       },
     });
+
 
     if (!profileRes.ok) {
       const errorResponse: HttpResponse<undefined> = {

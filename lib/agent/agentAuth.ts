@@ -1,15 +1,13 @@
 import { agentExternal } from "@/lib/agent/agentExternal";
 import sessionManager, { OpenIddictTokenResponse } from "@/lib/session/sessionManager";
 import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
-import {
-  RegisterRequest,
-  LoginRequest,
-  RecoverRequest,
-  UpdateProfileRequest,
-  ChangePasswordRequest,
-} from "@/lib/models/auth";
+import {LoginRequest} from "@/lib/models/auth/loginRequest";
+import {RegisterRequest} from "@/lib/models/auth/registerRequest";
+import {UpdateProfileRequest} from "@/lib/models/auth/updateProfileRequest";
+import {ChangePasswordRequest} from "@/lib/models/auth/changePasswordRequest";
 
-const BASE_URL = process.env.NEXT_PUBLIC_AUTH_API || "http://localhost:5000/api/auth";
+
+const BASE_URL = process.env.AUTH_API ?? null;
 
 export const agentAuth = {
   // --- INNLOGGING (OAuth2 Password Grant) ---
@@ -37,6 +35,7 @@ export const agentAuth = {
     body.append("Password", data.password);
     body.append("FirstName", data.firstName);
     body.append("LastName", data.lastName);
+
 
     const response = await agentExternal.postForm(`${BASE_URL}/account/register`, body);
 

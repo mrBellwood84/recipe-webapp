@@ -67,9 +67,12 @@ const proxy = async (req: NextRequest): Promise<NextResponse<unknown>> => {
     }
   }
 
-  // 4. Rolleretningslinjer for admin-ruter ("admin" i små bokstaver)
+// 4. Rolleretningslinjer for admin-ruter
   if (req.nextUrl.pathname.startsWith("/admin")) {
-    const role = sessionManager.getUserRole(token);
+    const userData = await sessionManager.getUserData();
+    const role = userData?.role;
+    console.log("checking user role:", role);
+
     if (role?.toLowerCase() !== "admin") {
       const newUrl = new URL("/404", req.url);
       return NextResponse.redirect(newUrl);

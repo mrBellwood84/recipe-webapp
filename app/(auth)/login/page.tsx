@@ -13,7 +13,7 @@ import { useSession } from "@/lib/session/SessionProvider";
 import { AsyncMainContainer } from "@/components/containers/MainContainer";
 
 const credentials: LoginRequest[] = [
-  { email: "admin@recipeapp.com", password: "AdminSuperSecretPassword123!" },
+  { email: "admin@kjoekkenhylla.local", password: "DittHemmeligeProdPassord123!" },
   { email: "user1@example.com", password: "DevUser123!" },
   { email: "user2@example.com", password: "DevUser123!" },
 ];
@@ -31,9 +31,12 @@ const LoginPage = () => {
       const data = (await res.json()) as HttpResponse<User | undefined>;
 
       if (data.statusCode === 200 && data.body) {
+
         session.setUser(data.body);
         session.setRole(data.body.role);
-        router.push(data.body.role === "Admin" ? "/admin/dashboard" : "/dashboard");
+
+        const isAdmin = data.body.role.toLowerCase() === "admin";
+        router.push(isAdmin ? "/admin/dashboard" : "/dashboard");
       }
     } catch (err) {
       console.error("DEV Login feilet:", err);
@@ -43,9 +46,10 @@ const LoginPage = () => {
   useEffect(() => {
     if (!session || !session.role) return;
 
-    if (session.role === "Admin") {
+    const normalizedRole = session.role.toLowerCase();
+    if (normalizedRole === "admin") {
       router.push("/admin/dashboard");
-    } else if (session.role === "User") {
+    } else if (normalizedRole === "user") {
       router.push("/dashboard");
     }
   }, [session?.role, router]);

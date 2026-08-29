@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { agentAuth } from "@/lib/agent/agentAuth";
 import sessionManager from "@/lib/session/sessionManager";
 import { HttpResponse } from "@/lib/models/httpResponse";
-import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
 import { RegisterRequest } from "@/lib/models/auth/registerRequest";
+import {UserProfileResponse} from "@/lib/models/auth/userProfileResponse";
 
 export const POST = async (request: Request) => {
   try {
