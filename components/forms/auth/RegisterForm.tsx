@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Anchor } from "@mantine/core";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm, isEmail, isNotEmpty } from "@mantine/form";
 import { agentInternal } from "@/lib/agent/agentInternal";
 import { useSession } from "@/lib/session/SessionProvider";
@@ -18,11 +17,14 @@ interface RegisterFormValues extends RegisterRequest {
   confirmPassword: string;
 }
 
-export const RegisterForm = () => {
+interface RegisterFormProps {
+  onRegistered?: (user: UserProfileResponse) => void;
+}
+
+export const RegisterForm = ({ onRegistered }: RegisterFormProps) => {
   const [requestActive, setRequestActive] = useState<boolean>(false);
   const [registerFailedMessage, setRegisterFailedMessage] = useState<string | undefined>();
 
-  const router = useRouter();
   const session = useSession();
 
   const form = useForm<RegisterFormValues>({
@@ -63,9 +65,10 @@ export const RegisterForm = () => {
       const data = (await res.json()) as HttpResponse<UserProfileResponse>;
 
       if (res.ok && data.body) {
-        // Oppdaterer brukeren i klient-state (SessionProvider setter også rollen automatisk)
         session.setUser(data.body);
-        router.push("/dashboard");
+        if (onRegistered) {
+          onRegistered(data.body);
+        }
       } else {
         setRegisterFailedMessage(data.message || "Kunne ikke registrere bruker.");
       }

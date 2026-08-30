@@ -8,11 +8,9 @@ import {SetPasswordRequest} from "@/lib/models/auth/setPasswordRequest";
 import {ConfirmEmailRequest} from "@/lib/models/auth/confirmEmailRequest";
 import {RecoverPasswordRequest} from "@/lib/models/auth/recoverPasswordRequest";
 import {ResetPasswordRequest} from "@/lib/models/auth/resetPasswordRequest";
+import {UserProfileResponse} from "@/lib/models/auth/userProfileResponse";
 
 const BASE_URL = process.env.AUTH_API ?? null;
-
-class UserProfileResponse {
-}
 
 export const agentAuth = {
   // --- 1. INNLOGGING (OAuth2 Password Grant) ---

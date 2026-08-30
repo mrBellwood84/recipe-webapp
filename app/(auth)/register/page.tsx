@@ -13,16 +13,25 @@ const RegisterPage = () => {
   const session = useSession();
 
   useEffect(() => {
-    if (!session || !session.role) return;
+    // Sjekk om brukeren er logget inn
+    if (!session || !session.user) return;
 
-    if (session.role === "Admin") {
+    // Hvis velkomsten ikke er fullført, send til /welcome
+    if (!session.user.welcomeCompleted) {
+      router.push("/user/welcome");
+      return;
+    }
+
+    // Ellers rute basert på rolle slik som før
+    const role = session.role?.toLowerCase();
+    if (role === "admin") {
       router.push("/admin/dashboard");
-    } else if (session.role === "User") {
+    } else if (role === "user") {
       router.push("/dashboard");
     }
-  }, [session?.role, router]);
+  }, [session?.user, session?.role, router]);
 
-  const isRedirecting = Boolean(session?.role);
+  const isRedirecting = Boolean(session?.user);
 
   return (
     <AsyncMainContainer size={480} py={40} loading={isRedirecting}>

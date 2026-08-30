@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Alert, Button, Divider, Paper, Stack, Text } from "@mantine/core";
+import Link from "next/link";
+import { Alert, Anchor, Button, Divider, Paper, Stack, Text } from "@mantine/core";
 import { LoginForm } from "@/components/forms/auth/LoginForm";
 import { GoogleLogin } from "@/components/forms/auth/GoogleLogin";
 import { agentInternal } from "@/lib/agent/agentInternal";
@@ -11,7 +12,7 @@ import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
 import { HttpResponse } from "@/lib/models/httpResponse";
 import { useSession } from "@/lib/session/SessionProvider";
 import { AsyncMainContainer } from "@/components/containers/MainContainer";
-import {DEV_USERS} from "@/app/(auth)/login/userData";
+import { DEV_USERS } from "@/app/(auth)/login/userData";
 
 const LoginPage = () => {
   const session = useSession();
@@ -65,13 +66,22 @@ const LoginPage = () => {
 
         <GoogleLogin />
 
+        {/* LENKE TIL REGISTRERING */}
+        <Paper p="md" radius="md" withBorder ta="center">
+          <Text size="sm">
+            Har du ikke en konto ennå?{" "}
+            <Anchor component={Link} href="/register" fw={500}>
+              Registrer deg her
+            </Anchor>
+          </Text>
+        </Paper>
+
         {/* DEV :: Testverktøy for hurtiginnlogging */}
         {process.env.NODE_ENV === "development" && (
           <Paper radius="md" p="md" withBorder bg="var(--mantine-color-gray-0)">
             <Divider label="DEV :: Hurtiginnlogging" labelPosition="center" mb="sm" />
             <Stack gap="xs">
               {Object.entries(DEV_USERS).map(([key, user]) => {
-                // Skjuler kontoer uten passord (f.eks. ren Google-testbruker) fra passord-innloggingen
                 if (!user.credentials.password) return null;
 
                 return (
