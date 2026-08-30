@@ -30,9 +30,45 @@ interface CategoryTodos {
 
 const initialRoadmap: CategoryTodos[] = [
   {
+    category: "Konto & Autentisering",
+    badgeColor: "orange",
+    items: [
+      {
+        id: "prof_settings",
+        label: "Profil & Kontostyring",
+        description: "Endre navn, e-post, passord og permanent sletting av konto.",
+        completed: true,
+      },
+      {
+        id: "prof_auth_security",
+        label: "Sikkerhet & Google OAuth-migrering",
+        description: "Opprette lokalt passord for Google-kontoer og sikker sesjonshåndtering via JWT.",
+        completed: false,
+      },
+      {
+        id: "prof_email_verification",
+        label: "E-postverifisering & Inaktivitetslogikk",
+        description: "Utsending av bekreftelseslenker, 14-dagers sperre-varsel og LastLoginAt-sporing.",
+        completed: false,
+      },
+      {
+        id: "prof_preferences",
+        label: "Kosthold, Allergier & App-innstillinger",
+        description: "Registrere allergier med advarsler, standard porsjoner og mørk/lys modus.",
+        completed: false,
+      },
+    ],
+  },
+  {
     category: "Oppskrifter & Søk",
     badgeColor: "teal",
     items: [
+      {
+        id: "imp_scraper",
+        label: "Oppskriftsimporter (Scraper)",
+        description: "Lim inn URL fra godkjente nettsider for automatisk import.",
+        completed: false,
+      },
       {
         id: "rec_edit_create",
         label: "Opprettelse & Full Redigerbarhet",
@@ -79,30 +115,6 @@ const initialRoadmap: CategoryTodos[] = [
         id: "plan_shopping_list",
         label: "Dynamisk Handleliste",
         description: "Automatisk sammenslåing av ingredienser fra ukesmenyen med sjekkliste.",
-        completed: false,
-      },
-    ],
-  },
-  {
-    category: "Import & Profil",
-    badgeColor: "orange",
-    items: [
-      {
-        id: "imp_scraper",
-        label: "Oppskriftsimporter",
-        description: "Lim inn URL fra godkjente nettsider for automatisk import.",
-        completed: false,
-      },
-      {
-        id: "prof_settings",
-        label: "Profil & Konto-styring",
-        description: "Endre navn, e-post, passord eller slette egen konto.",
-        completed: false,
-      },
-      {
-        id: "prof_preferences",
-        label: "Kosthold, Allergier & App-innstillinger",
-        description: "Registrere allergier med advarsler, standard porsjoner og mørk/lys modus.",
         completed: false,
       },
       {
@@ -158,7 +170,7 @@ const UserDashboardPage = () => {
           <div>
             <Title order={2}>🍳 Min Kjøkkenhylle</Title>
             <Text c="dimmed" size="sm">
-              Oversikt over planlagte brukerfunksjoner og utvikling
+              Oversikt over planlagte brukerfunksjoner og utviklingsfremdrift
             </Text>
           </div>
           <Badge size="lg" variant="filled" color="teal">
@@ -178,7 +190,7 @@ const UserDashboardPage = () => {
           </Stack>
         </Paper>
 
-        <Tabs defaultValue="Oppskrifter & Søk">
+        <Tabs defaultValue="Konto & Autentisering">
           <Tabs.List mb="md">
             {roadmap.map((cat) => (
               <Tabs.Tab key={cat.category} value={cat.category}>

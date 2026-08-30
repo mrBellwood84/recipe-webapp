@@ -2,21 +2,16 @@
 
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Alert, Button, Divider, Paper, Stack } from "@mantine/core";
+import { Alert, Button, Divider, Paper, Stack, Text } from "@mantine/core";
 import { LoginForm } from "@/components/forms/auth/LoginForm";
 import { GoogleLogin } from "@/components/forms/auth/GoogleLogin";
 import { agentInternal } from "@/lib/agent/agentInternal";
 import { LoginRequest } from "@/lib/models/auth/loginRequest";
-import { User } from "@/lib/models/user/user";
+import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
 import { HttpResponse } from "@/lib/models/httpResponse";
 import { useSession } from "@/lib/session/SessionProvider";
 import { AsyncMainContainer } from "@/components/containers/MainContainer";
-
-const credentials: LoginRequest[] = [
-  { email: "admin@kjoekkenhylla.local", password: "DittHemmeligeProdPassord123!" },
-  { email: "user1@example.com", password: "DevUser123!" },
-  { email: "user2@example.com", password: "DevUser123!" },
-];
+import {DEV_USERS} from "@/app/(auth)/login/userData";
 
 const LoginPage = () => {
   const session = useSession();
@@ -25,13 +20,12 @@ const LoginPage = () => {
 
   const hasExpired = searchParams.get("expired") === "true";
 
-  const handleStaticLogin = async (user: LoginRequest) => {
+  const handleStaticLogin = async (credentials: LoginRequest) => {
     try {
-      const res = await agentInternal.post("/api/auth/login", user);
-      const data = (await res.json()) as HttpResponse<User | undefined>;
+      const res = await agentInternal.post("/api/auth/login", credentials);
+      const data = (await res.json()) as HttpResponse<UserProfileResponse | undefined>;
 
       if (data.statusCode === 200 && data.body) {
-
         session.setUser(data.body);
         session.setRole(data.body.role);
 
@@ -52,7 +46,7 @@ const LoginPage = () => {
     } else if (normalizedRole === "user") {
       router.push("/dashboard");
     }
-  }, [session?.role, router]);
+  }, [session.role, router, session]);
 
   const isRedirecting = Boolean(session?.role);
 
@@ -71,35 +65,38 @@ const LoginPage = () => {
 
         <GoogleLogin />
 
-        {/* DEV :: Testverktøy (Kjører kun lokalt/i development) */}
+        {/* DEV :: Testverktøy for hurtiginnlogging */}
         {process.env.NODE_ENV === "development" && (
           <Paper radius="md" p="md" withBorder bg="var(--mantine-color-gray-0)">
-            <Divider label="DEV :: Testinnlogging" labelPosition="center" mb="sm" />
+            <Divider label="DEV :: Hurtiginnlogging" labelPosition="center" mb="sm" />
             <Stack gap="xs">
-              <Button
-                variant="light"
-                color="gray"
-                size="xs"
-                onClick={() => handleStaticLogin(credentials[0])}
-              >
-                DEV :: Login Admin
-              </Button>
-              <Button
-                variant="light"
-                color="gray"
-                size="xs"
-                onClick={() => handleStaticLogin(credentials[1])}
-              >
-                DEV :: Login User 1
-              </Button>
-              <Button
-                variant="light"
-                color="gray"
-                size="xs"
-                onClick={() => handleStaticLogin(credentials[2])}
-              >
-                DEV :: Login User 2
-              </Button>
+              {Object.entries(DEV_USERS).map(([key, user]) => {
+                // Skjuler kontoer uten passord (f.eks. ren Google-testbruker) fra passord-innloggingen
+                if (!user.credentials.password) return null;
+
+                return (
+                  <Button
+                    key={key}
+                    variant="light"
+                    color="gray"
+                    size="xs"
+                    justify="space-between"
+                    onClick={() =>
+                      handleStaticLogin({
+                        email: user.credentials.email,
+                        password: user.credentials.password!,
+                      })
+                    }
+                  >
+                    <Text size="xs" fw={500}>
+                      DEV :: {user.label}
+                    </Text>
+                    <Text size="xs" c="dimmed">
+                      {user.credentials.email}
+                    </Text>
+                  </Button>
+                );
+              })}
             </Stack>
           </Paper>
         )}

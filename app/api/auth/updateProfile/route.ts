@@ -3,7 +3,7 @@ import { agentAuth } from "@/lib/agent/agentAuth";
 import sessionManager from "@/lib/session/sessionManager";
 import { HttpResponse } from "@/lib/models/httpResponse";
 import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
-import { UpdateProfileRequest } from "@/lib/models/auth";
+import {UpdateProfileRequest} from "@/lib/models/auth/updateProfileRequest";
 
 export const PUT = async (request: Request) => {
   try {

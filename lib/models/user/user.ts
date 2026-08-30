@@ -1,11 +1,6 @@
-import {UserRoleType} from "@/lib/models/types";
+import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
 
-export interface User {
-  userId: string;
-  userName: string;
-  role: UserRoleType
-  email: string;
-  firstName: string;
-  lastName: string;
-  avatarUrl: string;
-}
+/**
+ * Brukerobjektet i sesjonen (eksakt lik API-responsen)
+ */
+export type User = UserProfileResponse;

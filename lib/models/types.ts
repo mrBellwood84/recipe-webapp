@@ -1,1 +1,1 @@
-export type UserRoleType = "Admin" | "User" | undefined
+export type UserRoleType = "Admin" | "User"

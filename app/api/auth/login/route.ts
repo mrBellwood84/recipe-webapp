@@ -11,7 +11,7 @@ export const POST = async (request: Request) => {
     // 1. Utfør OAuth2 Token Exchange via OpenIddict (/connect/token)
     const tokens = await agentAuth.login(body);
 
-    // 2. Hent innlogget brukersin profil fra /account/me med det ferske tokenet
+    // 2. Hent innlogget brukersin profil fra /account/deleteProfile med det ferske tokenet
     const meUrl = `${process.env.AUTH_API}/account/me`;
     const profileRes = await fetch(meUrl, {
       method: "GET",

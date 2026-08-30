@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { agentAuth } from "@/lib/agent/agentAuth";
 import { HttpResponse } from "@/lib/models/httpResponse";
-import { ChangePasswordRequest } from "@/lib/models/auth";
+import {ChangePasswordRequest} from "@/lib/models/auth/changePasswordRequest";
 
 export const POST = async (request: Request) => {
   try {

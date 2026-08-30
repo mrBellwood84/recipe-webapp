@@ -1,0 +1,19 @@
+import { NextResponse } from "next/server";
+import { agentAuth } from "@/lib/agent/agentAuth";
+import sessionManager from "@/lib/session/sessionManager";
+
+export async function GET() {
+  try {
+    const updatedUser = await agentAuth.completeWelcome();
+
+    // Oppdaterer cookien på server-siden slik at framtidige requests har fersk profil
+    await sessionManager.setUserData(updatedUser);
+
+    return NextResponse.json(updatedUser, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json(
+      { message: error.message || "Kunne ikke fullføre velkomstreisen." },
+      { status: 400 }
+    );
+  }
+}
