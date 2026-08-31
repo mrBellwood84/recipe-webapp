@@ -152,8 +152,6 @@ const sessionManager = {
       const decoded = Buffer.from(base64, "base64").toString("utf-8");
       const claims = JSON.parse(decoded);
 
-      console.log("decoded")
-
       const roleClaim =
         claims.role ||
         claims.roles ||
@@ -165,7 +163,6 @@ const sessionManager = {
 
       return roleClaim;
     } catch (error){
-      console.log("ERROR: \n", error);
       return undefined;
     }
   },

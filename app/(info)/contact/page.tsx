@@ -1,16 +1,10 @@
-"use client";
+import { AsyncMainContainer } from "@/components/containers/MainContainer";
+import {ContactForm} from "@/components/forms/ContactForm";
 
-import { Container, Stack } from "@mantine/core";
-import { ContactForm } from "@/components/forms/ContactForm";
-
-const ContactPage = () => {
+export default function ContactPage() {
   return (
-    <Container size={520} my={40}>
-      <Stack gap="md">
-        <ContactForm />
-      </Stack>
-    </Container>
+    <AsyncMainContainer size="sm" py="xl">
+      <ContactForm />
+    </AsyncMainContainer>
   );
-};
-
-export default ContactPage;
+}

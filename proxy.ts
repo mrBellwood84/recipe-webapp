@@ -71,7 +71,6 @@ const proxy = async (req: NextRequest): Promise<NextResponse<unknown>> => {
   if (req.nextUrl.pathname.startsWith("/admin")) {
     const userData = await sessionManager.getUserData();
     const role = userData?.role;
-    console.log("checking user role:", role);
 
     if (role?.toLowerCase() !== "admin") {
       const newUrl = new URL("/404", req.url);
