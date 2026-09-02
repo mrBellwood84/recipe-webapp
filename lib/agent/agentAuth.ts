@@ -10,7 +10,11 @@ import {RecoverPasswordRequest} from "@/lib/models/auth/recoverPasswordRequest";
 import {ResetPasswordRequest} from "@/lib/models/auth/resetPasswordRequest";
 import {UserProfileResponse} from "@/lib/models/auth/userProfileResponse";
 
-const BASE_URL = process.env.AUTH_API ?? null;
+const BASE_URL = process.env.AUTH_API;
+
+if (!BASE_URL) {
+  throw new Error("Miljøvariabelen AUTH_API er ikke definert.");
+}
 
 export const agentAuth = {
   // --- 1. INNLOGGING (OAuth2 Password Grant) ---
