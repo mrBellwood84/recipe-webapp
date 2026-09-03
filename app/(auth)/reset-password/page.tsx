@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
+import { ResetPasswordForm } from "@/components/forms/auth/ResetPasswordForm";
 import { useSession } from "@/lib/session/SessionProvider";
 import { AsyncMainContainer } from "@/components/containers/MainContainer";
-import {RecoverPassword} from "@/components/forms/auth/RecoverPassword";
 
-const ForgotPasswordPage = () => {
+const ResetPasswordContent = () => {
   const router = useRouter();
   const session = useSession();
 
@@ -24,9 +24,17 @@ const ForgotPasswordPage = () => {
 
   return (
     <AsyncMainContainer size={420} py={40} loading={isRedirecting}>
-      <RecoverPassword />
+      <ResetPasswordForm />
     </AsyncMainContainer>
   );
 };
 
-export default ForgotPasswordPage;
+const ResetPasswordPage = () => {
+  return (
+    <Suspense>
+      <ResetPasswordContent />
+    </Suspense>
+  );
+};
+
+export default ResetPasswordPage;

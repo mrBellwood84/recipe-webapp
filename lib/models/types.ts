@@ -1,1 +1,1 @@
-export type UserRoleType = "Admin" | "User"
+export type UserRoleType = "Admin" | "User" | string;
