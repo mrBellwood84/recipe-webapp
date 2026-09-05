@@ -18,16 +18,17 @@ import {
   IconAlertCircle,
   IconArrowRight,
   IconLogin,
-  IconMailCheck,
 } from "@tabler/icons-react";
 import { AsyncMainContainer } from "@/components/containers/MainContainer";
 import { agentInternal } from "@/lib/agent/agentInternal";
+import { useSession } from "@/lib/session/SessionProvider";
 
 type Status = "loading" | "success" | "error";
 
 function ConfirmEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { refreshProfile, updateUser } = useSession();
 
   const userId = searchParams.get("userId");
   const token = searchParams.get("token");
@@ -35,27 +36,26 @@ function ConfirmEmailContent() {
   const [status, setStatus] = useState<Status>("loading");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Forhindrer dobbel-kall i React StrictMode
   const hasExecutedRef = useRef(false);
 
   useEffect(() => {
-    // 1. Sjekk at vi har de nødvendige parametrene i URL-en
     if (!userId || !token) {
       setStatus("error");
       setErrorMessage("Ugyldig eller manglende bekreftelseslenke.");
       return;
     }
 
-    // 2. Forhindre at kallet feiler på re-render
     if (hasExecutedRef.current) return;
     hasExecutedRef.current = true;
 
-    // 3. Utfør det interne API-kallet
     agentInternal
       .post("/api/auth/confirm-email", { userId, token })
       .then(async (res) => {
         if (res.ok) {
           setStatus("success");
+          // Oppdaterer lokalt i state med en gang, og henter deretter fersk profil fra backend
+          updateUser({ isEmailConfirmed: true });
+          await refreshProfile();
         } else {
           const data = await res.json().catch(() => null);
           setErrorMessage(
@@ -69,7 +69,7 @@ function ConfirmEmailContent() {
         setErrorMessage("Nettverksfeil. Kunne ikke koble til serveren.");
         setStatus("error");
       });
-  }, [userId, token]);
+  }, [userId, token, refreshProfile, updateUser]);
 
   return (
     <AsyncMainContainer size="sm" py={60} loading={status === "loading"}>

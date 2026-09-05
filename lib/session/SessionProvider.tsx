@@ -2,11 +2,13 @@
 
 import { createContext, ReactNode, useContext, useState } from "react";
 import { UserProfileResponse } from "@/lib/models/auth/userProfileResponse";
+import { agentInternal } from "@/lib/agent/agentInternal";
 
 interface SessionContextType {
   user?: UserProfileResponse;
   setUser: (user: UserProfileResponse | undefined) => void;
   updateUser: (partialUser: Partial<UserProfileResponse>) => void;
+  refreshProfile: () => Promise<void>;
   role?: string;
   setRole: (role: string | undefined) => void;
 }
@@ -22,13 +24,11 @@ export const SessionProvider = ({ initialUser, children }: Props) => {
   const [user, setUserState] = useState<UserProfileResponse | undefined>(initialUser);
   const [role, setRole] = useState<string | undefined>(initialUser?.role);
 
-  // Oppdaterer hele brukerobjektet og synkroniserer rolle
   const setUser = (newUser: UserProfileResponse | undefined) => {
     setUserState(newUser);
     setRole(newUser?.role);
   };
 
-  // Hjelpefunksjon for å delvis oppdatere bruker (f.eks. kun sette welcomeCompleted: true)
   const updateUser = (partialUser: Partial<UserProfileResponse>) => {
     setUserState((prev) => {
       if (!prev) return undefined;
@@ -40,8 +40,21 @@ export const SessionProvider = ({ initialUser, children }: Props) => {
     });
   };
 
+  // Henter fersk profil fra serveren og oppdaterer tilstanden
+  const refreshProfile = async () => {
+    try {
+      const res = await agentInternal.get("/api/auth/me");
+      if (res.ok) {
+        const freshUser: UserProfileResponse = await res.json();
+        setUser(freshUser);
+      }
+    } catch (err) {
+      console.error("Kunne ikke fornye brukerprofil:", err);
+    }
+  };
+
   return (
-    <SessionContext.Provider value={{ user, role, setUser, updateUser, setRole }}>
+    <SessionContext.Provider value={{ user, role, setUser, updateUser, refreshProfile, setRole }}>
       {children}
     </SessionContext.Provider>
   );
