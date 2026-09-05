@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Title,
   Text,
@@ -39,18 +39,66 @@ const initialRoadmap: CategoryTodos[] = [
         id: "usr_list",
         label: "Brukeroversikt",
         description: "Tabell over alle registrerte brukere med søk og filtrering.",
-        completed: false,
+        completed: true,
       },
       {
         id: "usr_lock",
         label: "Låse / Låse opp kontoer",
-        description: "Mulighet til å deaktivere brukere ved behov.",
-        completed: false,
+        description: "Mulighet til å deaktivere og gjenåpne brukere ved behov.",
+        completed: true,
       },
       {
         id: "usr_reset_del",
         label: "Passord-nullstilling & Sletting",
         description: "Administrativ tilbakestilling av passord og sletting av kontoer.",
+        completed: true,
+      },
+      {
+        id: "usr_google_sso",
+        label: "Google SSO-innlogging",
+        description: "Sømløs registrering og innlogging med Google-konto.",
+        completed: true,
+      },
+      {
+        id: "usr_google_lock_alert",
+        label: "Feilvarsel for låste Google-brukere",
+        description: "Gi feilmelding/varsel når en sperret Google-bruker forsøker å logge inn.",
+        completed: false,
+      },
+      {
+        id: "usr_custom_email",
+        label: "Direkte e-postsending fra Admin",
+        description: "Mulighet til å sende standardiserte eller tilpassede e-poster til brukere direkte fra appen.",
+        completed: false,
+      },
+      {
+        id: "usr_blacklist",
+        label: "Svartelisting (E-post & Domener)",
+        description: "Sperre spesifikke e-postadresser eller hele e-postdomener fra å registrere seg igjen.",
+        completed: false,
+      },
+      {
+        id: "usr_status_filter",
+        label: "Filtrering på Påminnelser & Inaktivitet",
+        description: "Søke/filtrere på brukere med 7/14 dagers påminnelse, samt 6 mnd / 1 års inaktivitet.",
+        completed: false,
+      },
+      {
+        id: "usr_audit_log",
+        label: "Aktivitetshistorikk / Audit Log",
+        description: "Oversikt over innloggingshistorikk, IP-adresser og administrative endringer per bruker.",
+        completed: false,
+      },
+      {
+        id: "usr_bulk_actions",
+        label: "Massehandlinger (Bulk operations)",
+        description: "Utføre låsing, sletting eller e-postsending på flere valgte brukere samtidig.",
+        completed: false,
+      },
+      {
+        id: "usr_auth_api_docs",
+        label: "Auth API Dokumentasjon, Refaktorering & README",
+        description: "Grundig kodedokumentasjon, refaktorering, kommentarer og ny README.md for Auth API.",
         completed: false,
       },
     ],
@@ -114,17 +162,6 @@ const initialRoadmap: CategoryTodos[] = [
 const AdminDashboardPage = () => {
   const [roadmap, setRoadmap] = useState<CategoryTodos[]>(initialRoadmap);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("kjoekkenhylla_admin_roadmap");
-    if (saved) {
-      try {
-        setRoadmap(JSON.parse(saved));
-      } catch (e) {
-        console.error("Kunne ikke laste roadmap fra localStorage", e);
-      }
-    }
-  }, []);
-
   const toggleItem = (categoryId: string, itemId: string) => {
     const updated = roadmap.map((cat) => {
       if (cat.category !== categoryId) return cat;
@@ -137,7 +174,6 @@ const AdminDashboardPage = () => {
     });
 
     setRoadmap(updated);
-    localStorage.setItem("kjoekkenhylla_admin_roadmap", JSON.stringify(updated));
   };
 
   const totalItems = roadmap.reduce((acc, cat) => acc + cat.items.length, 0);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Title,
   Text,
@@ -41,14 +41,26 @@ const initialRoadmap: CategoryTodos[] = [
       },
       {
         id: "prof_auth_security",
-        label: "Sikkerhet & Google OAuth-migrering",
-        description: "Opprette lokalt passord for Google-kontoer og sikker sesjonshåndtering via JWT.",
-        completed: false,
+        label: "Sikkerhet & Google OAuth",
+        description: "Registrering og innlogging med Google, lokal passordopprettelse og JWT-sesjoner.",
+        completed: true,
       },
       {
         id: "prof_email_verification",
-        label: "E-postverifisering & Inaktivitetslogikk",
-        description: "Utsending av bekreftelseslenker, 14-dagers sperre-varsel og LastLoginAt-sporing.",
+        label: "E-postverifisering & Notifikasjonssystem",
+        description: "Utsending av bekreftelseslenker, 7/14-dagers påminnelser og automatiske e-postvarsler.",
+        completed: true,
+      },
+      {
+        id: "prof_google_lock_alert",
+        label: "Varsel for sperret Google-konto",
+        description: "Tydelig tilbakemelding i innloggingsskjermen dersom en sperret Google-bruker forsøker å logge inn.",
+        completed: false,
+      },
+      {
+        id: "prof_gdpr_export",
+        label: "GDPR-datainnsyn & Eksport",
+        description: "Mulighet for brukeren til å hente ut og laste ned alle sine registrerte personopplysninger.",
         completed: false,
       },
       {
@@ -130,17 +142,6 @@ const initialRoadmap: CategoryTodos[] = [
 const UserDashboardPage = () => {
   const [roadmap, setRoadmap] = useState<CategoryTodos[]>(initialRoadmap);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("kjoekkenhylla_user_roadmap");
-    if (saved) {
-      try {
-        setRoadmap(JSON.parse(saved));
-      } catch (e) {
-        console.error("Kunne ikke laste roadmap fra localStorage", e);
-      }
-    }
-  }, []);
-
   const toggleItem = (categoryId: string, itemId: string) => {
     const updated = roadmap.map((cat) => {
       if (cat.category !== categoryId) return cat;
@@ -153,7 +154,6 @@ const UserDashboardPage = () => {
     });
 
     setRoadmap(updated);
-    localStorage.setItem("kjoekkenhylla_user_roadmap", JSON.stringify(updated));
   };
 
   const totalItems = roadmap.reduce((acc, cat) => acc + cat.items.length, 0);
