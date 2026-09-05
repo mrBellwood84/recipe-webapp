@@ -1,7 +1,23 @@
 "use client";
 
-import { Title, Text, Paper, Stack, Badge, ThemeIcon, Group, SimpleGrid, Card } from "@mantine/core";
-import { IconShieldCheck, IconLock, IconTrash, IconUserCheck } from "@tabler/icons-react";
+import {
+  Title,
+  Text,
+  Paper,
+  Stack,
+  Badge,
+  ThemeIcon,
+  Group,
+  SimpleGrid,
+  Card,
+} from "@mantine/core";
+import {
+  IconShieldCheck,
+  IconLock,
+  IconTrash,
+  IconUserCheck,
+  IconDownload,
+} from "@tabler/icons-react";
 
 export default function PrivacyPage() {
   return (
@@ -9,7 +25,7 @@ export default function PrivacyPage() {
       <Stack gap="lg">
         <div>
           <Badge color="gray" variant="light" mb="xs">
-            Sist oppdatert: 25. august 2026
+            Sist oppdatert: 5. september 2026
           </Badge>
           <Title order={2} size="h2">
             Personvernerklæring for Kjøkkenhylla
@@ -37,7 +53,7 @@ export default function PrivacyPage() {
                   • <b>Navn (Fornavn og etternavn):</b> Brukes for å gi deg en personlig brukeropplevelse.
                 </Text>
                 <Text size="xs">
-                  • <b>Innloggingsinformasjon fra Google (OAuth):</b> Dersom du benytter Google-innlogging, henter vi kun e-postadresse og navn.
+                  • <b>Innloggingsinformasjon fra Google (OAuth):</b> Dersom du benytter Google-innlogging, henter vi kun e-postadresse og navn fra Google-profilen din.
                 </Text>
               </Stack>
             </Paper>
@@ -83,7 +99,23 @@ export default function PrivacyPage() {
               Passord lagres kryptert via vår .NET Identity-backend, og all kommunikasjon sikres med SSL/TLS. I henhold til GDPR har du følgende rettigheter:
             </Text>
             <Stack gap="xs">
+              {/* Datainnsyn og dataportabilitet */}
               <Paper p="sm" radius="sm" withBorder style={{ borderColor: "var(--mantine-color-teal-3)" }}>
+                <Group align="flex-start" gap="sm">
+                  <IconDownload size={20} color="var(--mantine-color-teal-6)" />
+                  <div>
+                    <Text fw={600} size="sm">
+                      Rett til innsyn og dataportabilitet (Selvbetjent eksport)
+                    </Text>
+                    <Text size="xs" c="dimmed">
+                      Du har rett til fullt innsyn i alle personopplysninger og brukerdata vi har registrert om deg. Du kan når som helst hente ut og laste ned en komplett kopi av dine data direkte fra profilinnstillingene dine (`/user/profile`).
+                    </Text>
+                  </div>
+                </Group>
+              </Paper>
+
+              {/* Sletting */}
+              <Paper p="sm" radius="sm" withBorder style={{ borderColor: "var(--mantine-color-red-3)" }}>
                 <Group align="flex-start" gap="sm">
                   <IconTrash size={20} color="var(--mantine-color-red-6)" />
                   <div>
@@ -97,15 +129,16 @@ export default function PrivacyPage() {
                 </Group>
               </Paper>
 
+              {/* Retting & Kontakt */}
               <Paper p="sm" radius="sm" withBorder>
                 <Group align="flex-start" gap="sm">
                   <IconUserCheck size={20} color="var(--mantine-color-blue-6)" />
                   <div>
                     <Text fw={600} size="sm">
-                      Innsyn og retting
+                      Rett til retting og øvrige henvendelser
                     </Text>
                     <Text size="xs" c="dimmed">
-                      Du kan selv oppdatere din profilinformasjon i applikasjonen, eller be om innsyn i opplysningene vi har lagret om deg.
+                      Du kan selv oppdatere din profilinformasjon i applikasjonen. Dersom du har spørsmål om denne personvernerklæringen eller dine rettigheter som ikke løses på profilsiden, kan du kontakte oss via kontaktskjemaet på nettstedet.
                     </Text>
                   </div>
                 </Group>

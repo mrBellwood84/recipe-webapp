@@ -1,6 +1,6 @@
 # Brukervilkår for Kjøkkenhylla
 
-**Sist oppdatert:** 30. august 2026
+**Sist oppdatert:** 5. september 2026
 
 Velkommen til Kjøkkenhylla. Ved å opprette en konto eller bruke våre tjenester aksepterer du følgende brukervilkår. Vennligst les dem nøye.
 
@@ -13,17 +13,18 @@ Velkommen til Kjøkkenhylla. Ved å opprette en konto eller bruke våre tjeneste
 
 ---
 
-## 2. Tjenestebeskrivelse og tilgang
+## 2. Tjenestebeskrivelse og tilgangsrettigheter
 
 * **Om tjenesten:** Kjøkkenhylla er et personlig digitalt verktøy for organisering av oppskrifter, måltidsplanlegging, næringsberegning og generering av handlelister.
-* **"Som den er" (As is):** Tjenesten leveres "som den er" uten garantier for uavbrutt drift eller 100 % opptid. Vi forbeholder oss retten til å oppdatere, endre eller begrense funksjoner ved behov.
+* **Privat plattform:** Kjøkkenhylla er en privat tjeneste, og tilgang til å bruke plattformen er ingen ubetinget rettighet.
+* **"Som den er" (As is):** Tjenesten leveres "som den er" uten garantier for uavbrutt drift eller 100 % opptid. Vi forbeholder oss retten til å oppdatere, endre, begrense eller stenge funksjoner ved behov.
 * **Kontoens funksjoner:** Kjernefunksjonalitet er reservert for innloggede brukere med en aktiv konto.
 
 ---
 
-## 3. Brukerkonto, e-postbekreftelse og inaktivitet
+## 3. Brukerkonto, e-postbekreftelse, inaktivitet og datainnsyn
 
-For å opprettholde sikkerhet, forhindre ubrukte eller fiktive kontoer og ivareta god datahygiene, gjelder følgende regler for kontobehandling:
+For å opprettholde sikkerhet, forhindre ubrukte eller fiktive kontoer, ivareta personvern og god datahygiene, gjelder følgende regler:
 
 * **Krav om e-postbekreftelse:** Alle nye kontoer må bekrefte sin e-postadresse via aktiveringslenken som sendes ved registrering.
 * **Ubekreftede kontoer (opprydding):**
@@ -37,10 +38,21 @@ For å opprettholde sikkerhet, forhindre ubrukte eller fiktive kontoer og ivaret
 * **1 år:** Kontoer som er inaktive i 1 år sperres i 30 dager før de slettes permanent, med mindre brukeren logger inn og bekrefter at kontoen fortsatt er i bruk.
 
 
+* **Datainnsyn og dataeksport (GDPR):** Du har fullt innsyn i personopplysningene og brukerdataene som er registrert om deg i våre systemer. Du kan når som helst hente ut og laste ned en kopi av dine registrerte brukerdata direktetil din enhet fra profilinnstillingene på din konto.
 
 ---
 
-## 4. Oppskriftsskraping og opphavsrett
+## 4. Utestengelse, folkeskikk og svartelisting (Blacklisting)
+
+Vi ønsker at Kjøkkenhylla skal være en trygg og ryddig plattform. Derfor gjelder følgende regler for oppførsel, utestengelse og adgangsrestriksjoner:
+
+* **Krav til alminnelig folkeskikk:** Brukere plikter å opptre ordentlig og utvise alminnelig folkeskikk i all interaksjon med plattformen og i henvendelser til support og administrasjon.
+* **Rett til utestengelse:** Siden Kjøkkenhylla er en privat plattform, forbeholder vi oss retten til når som helst, uten forvarsel eller begrunnelse, å utestenge, sperre eller slette brukere som bryter disse vilkårene, utviser uakseptabel oppførsel, eller dersom vi av andre administrative grunner finner det nødvendig.
+* **Svartelisting av e-postadresser og domener:** Ved utestengelse, regelbrudd eller misbruk forbeholder vi oss retten til å svarteliste spesifikke e-postadresser eller hele e-postdomener. En svartelistet e-postadresse eller et svartelistet domene vil nektes framtidig registrering og tilgang til Kjøkkenhylla sine tjenester.
+
+---
+
+## 5. Oppskriftsskraping og opphavsrett
 
 * **Personlig verktøy:** Oppskriftsskraperen i Kjøkkenhylla er utformet som et personlig arkiv- og organiseringsverktøy for privat bruk.
 * **Brukerens ansvar:** Når du skraper eller henter innhold fra eksterne nettsider, er du selv ansvarlig for at din bruk skjer i samsvar med de aktuelle nettsidenes egne brukervilkår, rettigheter og opphavsrett.
@@ -48,7 +60,7 @@ For å opprettholde sikkerhet, forhindre ubrukte eller fiktive kontoer og ivaret
 
 ---
 
-## 5. Ansvarsfraskrivelse for helse, allergener og næringsinnhold
+## 6. Ansvarsfraskrivelse for helse, allergener og næringsinnhold
 
 * **Veiledende data:** Beregninger av næringsinnhold, anbefalt dagsinntak og allergenmerking i Kjøkkenhylla er **kun veiledende**.
 * **Offentlige datakilder:** Informasjonen støtter seg blant annet på åpne data fra offentlige instanser som *Matvaretabellen* (Mattilsynet) og *Referanseverdier for energi og næringsstoffer* (Helsedirektoratet). Kjøkkenhylla garanterer ikke 100 % nøyaktighet for enkeltråvarer eller sammensatte retter.
@@ -57,18 +69,18 @@ For å opprettholde sikkerhet, forhindre ubrukte eller fiktive kontoer og ivaret
 
 ---
 
-## 6. Eksterne lenker
+## 7. Eksterne lenker
 
 Kjøkkenhylla kan inneholde lenker til eksterne oppskriftssider eller samarbeidende nettsteder. Vi har ingen kontroll over og tar intet ansvar for innholdet, personvernreglene eller praksisen til eksterne nettsteder.
 
 ---
 
-## 7. Endringer i vilkårene
+## 8. Endringer i vilkårene
 
 Vi kan fra tid til annen oppdatere disse brukervilkårene. Ved vesentlige endringer vil vi informere om dette på nettstedet eller via e-post. Ved å fortsette å bruke Kjøkkenhylla etter at endringene trer i kraft, godtar du de oppdaterte vilkårene.
 
 ---
 
-## 8. Kontakt oss
+## 9. Kontakt oss
 
 Har du spørsmål vedrørende brukervilkårene? Ta kontakt med oss via kontaktskjemaet på nettstedet.

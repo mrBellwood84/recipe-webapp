@@ -15,6 +15,8 @@ import {
   IconCheck,
   IconAlertTriangle,
   IconMailCheck,
+  IconBan,
+  IconDownload,
 } from "@tabler/icons-react";
 
 export default function TermsPage() {
@@ -23,7 +25,7 @@ export default function TermsPage() {
       <Stack gap="lg">
         <div>
           <Badge color="gray" variant="light" mb="xs">
-            Sist oppdatert: 30. august 2026
+            Sist oppdatert: 5. september 2026
           </Badge>
           <Title order={2} size="h2">
             Brukervilkår for Kjøkkenhylla
@@ -67,7 +69,7 @@ export default function TermsPage() {
           {/* Seksjon 2 */}
           <div>
             <Title order={3} size="h4" mb={6}>
-              2. Tjenestebeskrivelse og tilgang
+              2. Tjenestebeskrivelse og tilgangsrettigheter
             </Title>
             <List spacing="xs" size="sm">
               <List.Item>
@@ -76,9 +78,13 @@ export default function TermsPage() {
                 og generering av handlelister.
               </List.Item>
               <List.Item>
+                <b>Privat plattform:</b> Kjøkkenhylla er en privat tjeneste, og
+                tilgang til å bruke plattformen er ingen ubetinget rettighet.
+              </List.Item>
+              <List.Item>
                 <b>&#34;Som den er&#34; (As is):</b> Tjenesten leveres &#34;som den er&#34; uten
                 garantier for uavbrutt drift eller 100 % opptid. Vi forbeholder
-                oss retten til å oppdatere, endre eller begrense funksjoner ved
+                oss retten til å oppdatere, endre, begrense eller stenge funksjoner ved
                 behov.
               </List.Item>
               <List.Item>
@@ -93,11 +99,11 @@ export default function TermsPage() {
           {/* Seksjon 3 */}
           <div>
             <Title order={3} size="h4" mb={6}>
-              3. Brukerkonto, e-postbekreftelse og inaktivitet
+              3. Brukerkonto, e-postbekreftelse, inaktivitet og datainnsyn
             </Title>
             <Text size="sm" lh={1.6} mb="xs">
-              For å oppretteholde sikkerhet, forhindre ubrukte eller fiktive kontoer
-              og ivareta god datahygiene, gjelder følgende regler for kontobehandling:
+              For å oppretteholde sikkerhet, forhindre ubrukte eller fiktive kontoer,
+              ivareta personvern og god datahygiene, gjelder følgende regler:
             </Text>
 
             <Stack gap="sm" mt="xs">
@@ -147,15 +153,57 @@ export default function TermsPage() {
                   </List>
                 </List.Item>
               </List>
+
+              <Alert
+                color="teal"
+                variant="light"
+                title="Datainnsyn og dataeksport (GDPR)"
+                icon={<IconDownload size={20} />}
+              >
+                <Text size="xs">
+                  Du har fullt innsyn i personopplysningene og brukerdataene som er registrert om deg.
+                  Du kan når som helst hente ut og laste ned en kopi av dine brukerdata direkte til din
+                  enhet fra profilinnstillingene på din konto.
+                </Text>
+              </Alert>
             </Stack>
           </div>
 
           <Divider variant="dashed" />
 
-          {/* Seksjon 4 */}
+          {/* Seksjon 4 - Utestengelse og Svartelisting */}
           <div>
             <Title order={3} size="h4" mb={6}>
-              4. Oppskriftsskraping og opphavsrett
+              4. Utestengelse, folkeskikk og svartelisting (Blacklisting)
+            </Title>
+            <Text size="sm" lh={1.6} mb="xs">
+              Vi ønsker at Kjøkkenhylla skal være en trygg og ryddig plattform. Derfor gjelder følgende regler:
+            </Text>
+            <List spacing="xs" size="sm">
+              <List.Item>
+                <b>Krav til alminnelig folkeskikk:</b> Brukere plikter å opptre ordentlig og utvise
+                alminnelig folkeskikk i all interaksjon med plattformen og i henvendelser til support og administrasjon.
+              </List.Item>
+              <List.Item>
+                <b>Rett til utestengelse:</b> Siden Kjøkkenhylla er en privat plattform, forbeholder vi oss
+                retten til når som helst, uten forvarsel eller begrunnelse, å utestenge, sperre eller slette brukere
+                som bryter disse vilkårene, utviser uakseptabel oppførsel, eller dersom vi av andre administrative
+                grunner finner det nødvendig.
+              </List.Item>
+              <List.Item>
+                <b>Svartelisting av e-postadresser og domener:</b> Ved utestengelse, regelbrudd eller misbruk
+                forbeholder vi oss retten til å svarteliste spesifikke e-postadresser eller hele e-postdomener. En svartelistet
+                e-postadresse eller et svartelistet domene vil nektes framtidig registrering og tilgang til Kjøkkenhylla.
+              </List.Item>
+            </List>
+          </div>
+
+          <Divider variant="dashed" />
+
+          {/* Seksjon 5 */}
+          <div>
+            <Title order={3} size="h4" mb={6}>
+              5. Oppskriftsskraping og opphavsrett
             </Title>
             <Text size="sm" lh={1.6} mb="xs">
               Oppskriftsskraperen i Kjøkkenhylla er utformet som et personlig arkiv-
@@ -181,10 +229,10 @@ export default function TermsPage() {
             </List>
           </div>
 
-          {/* Seksjon 5 - Ansvarsfraskrivelse */}
+          {/* Seksjon 6 - Ansvarsfraskrivelse */}
           <Alert
             color="orange"
-            title="5. Ansvarsfraskrivelse for helse, allergener og næringsinnhold"
+            title="6. Ansvarsfraskrivelse for helse, allergener og næringsinnhold"
             icon={<IconAlertTriangle size={20} />}
           >
             <Stack gap={6}>
@@ -214,10 +262,10 @@ export default function TermsPage() {
             </Stack>
           </Alert>
 
-          {/* Seksjon 6 */}
+          {/* Seksjon 7 */}
           <div>
             <Title order={3} size="h4" mb={6}>
-              6. Eksterne lenker
+              7. Eksterne lenker
             </Title>
             <Text size="sm" lh={1.6}>
               Kjøkkenhylla kan inneholde lenker til eksterne oppskriftssider eller
@@ -229,10 +277,10 @@ export default function TermsPage() {
 
           <Divider variant="dashed" />
 
-          {/* Seksjon 7 */}
+          {/* Seksjon 8 */}
           <div>
             <Title order={3} size="h4" mb={6}>
-              7. Endringer i vilkårene
+              8. Endringer i vilkårene
             </Title>
             <Text size="sm" lh={1.6}>
               Vi kan fra tid til annen oppdatere disse brukervilkårene. Ved
@@ -244,10 +292,10 @@ export default function TermsPage() {
 
           <Divider variant="dashed" />
 
-          {/* Seksjon 8 */}
+          {/* Seksjon 9 */}
           <div>
             <Title order={3} size="h4" mb={6}>
-              8. Kontakt oss
+              9. Kontakt oss
             </Title>
             <Text size="sm" lh={1.6}>
               Har du spørsmål vedrørende brukervilkårene? Ta kontakt med oss via
