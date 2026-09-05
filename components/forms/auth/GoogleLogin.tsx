@@ -1,8 +1,14 @@
+"use client";
+
 import { Button } from "@mantine/core";
 import Image from "next/image";
-import {AuthCard} from "@/components/forms/common/AuthCard";
+import { AuthCard } from "@/components/forms/common/AuthCard";
 
 export const GoogleLogin = () => {
+  const handleGoogleLogin = () => {
+    window.location.href = "/api/auth/google";
+  };
+
   return (
     <AuthCard>
       <Button
@@ -16,9 +22,9 @@ export const GoogleLogin = () => {
             height={18}
           />
         }
-        disabled
+        onClick={handleGoogleLogin}
       >
-        Logg inn med Google (Kommer snart)
+        Logg på med Google
       </Button>
     </AuthCard>
   );

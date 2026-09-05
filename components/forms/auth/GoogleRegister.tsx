@@ -1,8 +1,14 @@
+"use client";
+
 import { Button } from "@mantine/core";
 import Image from "next/image";
-import {AuthCard} from "@/components/forms/common/AuthCard";
+import { AuthCard } from "@/components/forms/common/AuthCard";
 
 export const GoogleRegister = () => {
+  const handleGoogleRegister = () => {
+    window.location.href = "/api/auth/google";
+  };
+
   return (
     <AuthCard>
       <Button
@@ -16,9 +22,9 @@ export const GoogleRegister = () => {
             height={18}
           />
         }
-        disabled
+        onClick={handleGoogleRegister}
       >
-        Registrer med Google (Kommer snart)
+        Registrer deg med Google
       </Button>
     </AuthCard>
   );
